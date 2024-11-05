@@ -18,7 +18,8 @@ config/icon="res://icon.svg"
 
 folder_colors={
 "res://levels/": "blue",
-"res://models/": "orange"
+"res://models/": "orange",
+"res://scenes/": "green"
 }
 
 [input]
