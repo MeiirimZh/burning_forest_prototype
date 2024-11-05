@@ -1,4 +1,6 @@
-[gd_scene load_steps=16 format=4 uid="uid://5w0elhccbe4m"]
+[gd_scene load_steps=17 format=4 uid="uid://5w0elhccbe4m"]
+
+[ext_resource type="Script" path="res://scripts/spirit.gd" id="1_ldjbo"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_370cm"]
 resource_name = "body"
@@ -1883,6 +1885,7 @@ radius = 0.4
 height = 1.7
 
 [node name="Spirit" type="CharacterBody3D"]
+script = ExtResource("1_ldjbo")
 
 [node name="Armature" type="Node3D" parent="."]
 
