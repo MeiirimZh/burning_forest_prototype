@@ -4,6 +4,7 @@ extends CharacterBody3D
 @onready var animation_player = $AnimationPlayer
 @onready var mesh = $Armature
 @onready var slide_timer = $SlideTimer
+@onready var collision_shape = $CollisionShape3D
 
 # Physics variables
 @export var speed := 7.0
@@ -92,7 +93,9 @@ func _physics_process(_delta) -> void:
 	if is_sliding:
 		if velocity.x == 0:
 			state = "slide"
-		velocity.x = last_direction * speed * 2
+			collision_shape.transform.origin.y = 0.5
+			collision_shape.shape.height = 1
+			velocity.x = last_direction * speed * 2
 	else:
 		velocity.x = direction * speed
 	
@@ -100,3 +103,5 @@ func _physics_process(_delta) -> void:
 
 func _on_slide_timer_timeout() -> void:
 	is_sliding = false
+	collision_shape.transform.origin.y = 0.85
+	collision_shape.shape.height = 1.7
