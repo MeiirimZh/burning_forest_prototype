@@ -4,6 +4,7 @@ extends CharacterBody3D
 @onready var animation_player = $AnimationPlayer
 @onready var mesh = $Armature
 @onready var slide_timer = $SlideTimer
+@onready var slide_cooldown_timer = $SlideCooldownTimer
 @onready var collision_shape = $CollisionShape3D
 
 # Physics variables
@@ -11,12 +12,14 @@ extends CharacterBody3D
 @export var jump_force := 12.0
 @export var gravity := 30.0
 @export var slide_duration := 0.5
+@export var slide_cooldown_duration := 2.0
 
 # Variables
 @export var state := "r_idle"
 var is_jumping := false
 var is_sliding := false
-var last_direction = 1
+var last_direction := 1
+var can_slide := true
 
 # Rotate the mesh and play an animation 
 func rotate_and_play(angle, animation):
@@ -86,9 +89,11 @@ func _physics_process(_delta) -> void:
 		else:
 			state = "side_jump"
 			
-	if Input.is_action_just_pressed("slide") and is_on_floor():
+	if Input.is_action_just_pressed("slide") and is_on_floor() and can_slide:
 		is_sliding = true
+		can_slide = false
 		slide_timer.start(slide_duration)
+		slide_cooldown_timer.start(slide_cooldown_duration)
 		
 	if is_sliding:
 		if velocity.x == 0:
@@ -105,3 +110,6 @@ func _on_slide_timer_timeout() -> void:
 	is_sliding = false
 	collision_shape.transform.origin.y = 0.85
 	collision_shape.shape.height = 1.7
+
+func _on_slide_cooldown_timer_timeout() -> void:
+	can_slide = true
