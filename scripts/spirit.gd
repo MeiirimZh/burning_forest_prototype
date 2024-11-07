@@ -88,9 +88,10 @@ func _physics_process(_delta) -> void:
 	if Input.is_action_just_pressed("slide") and is_on_floor():
 		is_sliding = true
 		slide_timer.start(slide_duration)
-		state = "slide"
 		
 	if is_sliding:
+		if velocity.x == 0:
+			state = "slide"
 		velocity.x = last_direction * speed * 2
 	else:
 		velocity.x = direction * speed
