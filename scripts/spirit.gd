@@ -3,21 +3,31 @@ extends CharacterBody3D
 # Nodes
 @onready var animation_player = $AnimationPlayer
 @onready var mesh = $Armature
+@onready var slide_timer = $SlideTimer
 
 # Physics variables
 @export var speed := 7.0
 @export var jump_force := 12.0
 @export var gravity := 30.0
+@export var slide_duration := 0.5
 
 # Variables
 @export var state := "r_idle"
 var is_jumping := false
-var last_direction = "r"
+var is_sliding := false
+var last_direction = 1
 
 # Rotate the mesh and play an animation 
 func rotate_and_play(angle, animation):
 	mesh.rotation.y = angle
 	animation_player.play(animation)
+
+# Set an idle animation based on a last direction
+func set_idle():
+	if last_direction == 1:
+		state = "r_idle"
+	else:
+		state = "l_idle"
 
 func _physics_process(_delta) -> void:
 	var direction = 0
@@ -39,24 +49,22 @@ func _physics_process(_delta) -> void:
 		animation_player.play("jump_side")
 	elif state == "side_fall":
 		animation_player.play("fall_side")
+	elif state == "slide":
+		animation_player.play("slide")
 	
 	# Running
 	if Input.is_action_pressed("left"):
 		direction = -1
 		state = "l_run"
-		last_direction = "l"
+		last_direction = -1
 	elif Input.is_action_pressed("right"):
 		direction = 1
 		state = "r_run"
-		last_direction = "r"
+		last_direction = 1
 	
 	# Reset the state to idle after a movement
-	if Input.is_action_just_released("left"):
-		state = "l_idle"
-	elif Input.is_action_just_released("right"):
-		state = "r_idle"
-		
-	velocity.x = direction * speed
+	if velocity.x == 0 and is_on_floor():
+		set_idle()
 	
 	if not is_on_floor():
 		velocity.y -= gravity * _delta
@@ -67,10 +75,7 @@ func _physics_process(_delta) -> void:
 	else:
 		if is_jumping:
 			is_jumping = false
-			if last_direction == "r":
-				state = "r_idle"
-			else:
-				state = "l_idle"
+			set_idle()
 		
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_force
@@ -79,5 +84,18 @@ func _physics_process(_delta) -> void:
 			state = "front_jump"
 		else:
 			state = "side_jump"
+			
+	if Input.is_action_just_pressed("slide") and is_on_floor():
+		is_sliding = true
+		slide_timer.start(slide_duration)
+		state = "slide"
+		
+	if is_sliding:
+		velocity.x = last_direction * speed * 2
+	else:
+		velocity.x = direction * speed
 	
 	move_and_slide()
+
+func _on_slide_timer_timeout() -> void:
+	is_sliding = false
