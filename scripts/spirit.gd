@@ -37,6 +37,8 @@ func _physics_process(_delta) -> void:
 		animation_player.play("fall_front")
 	elif state == "side_jump":
 		animation_player.play("jump_side")
+	elif state == "side_fall":
+		animation_player.play("fall_side")
 	
 	# Running
 	if Input.is_action_pressed("left"):
@@ -58,8 +60,10 @@ func _physics_process(_delta) -> void:
 	
 	if not is_on_floor():
 		velocity.y -= gravity * _delta
-		if velocity.y < 0 and is_jumping:
+		if velocity.y < 0 and velocity.x == 0 and is_jumping:
 			state = "front_fall"
+		if velocity.y < 0 and velocity.x != 0 and is_jumping:
+			state = "side_fall"
 	else:
 		if is_jumping:
 			is_jumping = false
