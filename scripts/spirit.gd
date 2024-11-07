@@ -27,14 +27,16 @@ func _physics_process(_delta) -> void:
 		rotate_and_play(0, "idle")
 	elif state == "l_idle":
 		rotate_and_play(85, "idle")
-	elif state == "r_run":
+	elif state == "r_run" and not is_jumping:
 		rotate_and_play(-92.5, "run")
-	elif state == "l_run":
+	elif state == "l_run" and not is_jumping:
 		rotate_and_play(92.5, "run")
 	elif state == "front_jump":
 		animation_player.play("jump_front")
 	elif state == "front_fall":
 		animation_player.play("fall_front")
+	elif state == "side_jump":
+		animation_player.play("jump_side")
 	
 	# Running
 	if Input.is_action_pressed("left"):
@@ -71,5 +73,7 @@ func _physics_process(_delta) -> void:
 		is_jumping = true
 		if velocity.x == 0:
 			state = "front_jump"
+		else:
+			state = "side_jump"
 	
 	move_and_slide()
