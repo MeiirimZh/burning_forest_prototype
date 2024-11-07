@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b7tpk1lt4xo34"]
+[gd_scene load_steps=9 format=3 uid="uid://b7tpk1lt4xo34"]
 
 [ext_resource type="PackedScene" uid="uid://ck1rkve1atrlh" path="res://scenes/spirit.tscn" id="1_1hhqs"]
 
@@ -21,6 +21,10 @@ size = Vector2(20, 1)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_a8b2k"]
 data = PackedVector3Array(10, 0, 0.5, -10, 0, 0.5, 10, 0, -0.5, -10, 0, 0.5, -10, 0, -0.5, 10, 0, -0.5)
 
+[sub_resource type="BoxMesh" id="BoxMesh_mklw4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_574fm"]
+
 [node name="World" type="Node"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -39,3 +43,12 @@ mesh = SubResource("PlaneMesh_37v16")
 shape = SubResource("ConcavePolygonShape3D_a8b2k")
 
 [node name="Spirit" parent="." instance=ExtResource("1_1hhqs")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15281, 0.504425, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_mklw4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_574fm")
