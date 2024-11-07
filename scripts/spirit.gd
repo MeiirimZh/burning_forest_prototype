@@ -6,7 +6,7 @@ extends CharacterBody3D
 
 # Physics variables
 @export var speed := 7.0
-@export var jump_force := 10.0
+@export var jump_force := 12.0
 @export var gravity := 30.0
 
 # Variables
@@ -28,6 +28,8 @@ func _physics_process(_delta) -> void:
 		rotate_and_play(-92.5, "run")
 	elif state == "l_run":
 		rotate_and_play(92.5, "run")
+	elif state == "front_jump":
+		animation_player.play("jump_front")
 	
 	if Input.is_action_pressed("left"):
 		direction = -1
@@ -48,5 +50,7 @@ func _physics_process(_delta) -> void:
 		
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_force
+		if velocity.x == 0:
+			state = "front_jump"
 	
 	move_and_slide()
