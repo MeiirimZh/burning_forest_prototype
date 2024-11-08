@@ -7,6 +7,9 @@ extends CharacterBody3D
 @onready var slide_cooldown_timer = $SlideCooldownTimer
 @onready var collision_shape = $CollisionShape3D
 
+# Scenes
+@export var projectile_scene : PackedScene = preload("res://scenes/spirit_projectile.tscn")
+
 # Physics variables
 @export var speed := 7.0
 @export var jump_force := 12.0
@@ -32,9 +35,21 @@ func set_idle():
 		state = "r_idle"
 	else:
 		state = "l_idle"
+		
+func spawn_projectile():
+	var projectile_instance = projectile_scene.instantiate()
+	var spawn_position = self.global_position + Vector3(1, 1, 0)
+	
+	projectile_instance.position = spawn_position
+	
+	get_tree().current_scene.add_child(projectile_instance)
 
 func _physics_process(_delta) -> void:
 	var direction = 0
+	
+	# Attack
+	if Input.is_action_just_pressed("attack"):
+		spawn_projectile()
 	
 	# Check the state and play the corresponding animation
 	if state == "r_idle":

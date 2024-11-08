@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://b7tpk1lt4xo34"]
+[gd_scene load_steps=12 format=3 uid="uid://b7tpk1lt4xo34"]
 
 [ext_resource type="PackedScene" uid="uid://ck1rkve1atrlh" path="res://scenes/spirit.tscn" id="1_1hhqs"]
-[ext_resource type="PackedScene" uid="uid://cjtptxy7jkotn" path="res://scenes/spirit_projectile.tscn" id="2_584yj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sgncv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -95,6 +94,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.32351, 3.46808, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TutorialText3"]
 mesh = SubResource("TextMesh_kva5i")
-
-[node name="SpiritProjectile" parent="." instance=ExtResource("2_584yj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.60787, 1, 0)
