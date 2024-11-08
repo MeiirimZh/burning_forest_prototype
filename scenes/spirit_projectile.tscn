@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cjtptxy7jkotn"]
+[gd_scene load_steps=5 format=3 uid="uid://cjtptxy7jkotn"]
+
+[ext_resource type="Script" path="res://scripts/spirit_projectile.gd" id="1_w74fs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jxl6v"]
 albedo_color = Color(6.97896e-07, 0.430378, 0.064752, 1)
@@ -12,9 +14,12 @@ height = 0.25
 size = Vector3(0.25, 0.25, 0.25)
 
 [node name="SpiritProjectile" type="Area3D"]
+script = ExtResource("1_w74fs")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_bkig8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_nq2hn")
+
+[node name="DisappearanceTimer" type="Timer" parent="."]
