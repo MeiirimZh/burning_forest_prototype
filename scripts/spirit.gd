@@ -81,9 +81,9 @@ func _physics_process(_delta) -> void:
 	
 	if not is_on_floor():
 		velocity.y -= gravity * _delta
-		if velocity.y < 0 and velocity.x == 0 and is_jumping:
+		if velocity.y < 0 and velocity.x == 0:
 			state = "front_fall"
-		if velocity.y < 0 and velocity.x != 0 and is_jumping:
+		if velocity.y < 0 and velocity.x != 0:
 			state = "side_fall"
 	else:
 		if is_jumping:
