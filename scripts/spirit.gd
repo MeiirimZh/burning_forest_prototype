@@ -48,11 +48,20 @@ func _physics_process(_delta) -> void:
 	elif state == "front_jump":
 		animation_player.play("jump_front")
 	elif state == "front_fall":
-		animation_player.play("fall_front")
+		if last_direction == 1:
+			rotate_and_play(0, "fall_front")
+		else:
+			rotate_and_play(85, "fall_front")
 	elif state == "side_jump":
-		animation_player.play("jump_side")
+		if last_direction == 1:
+			rotate_and_play(-92.5, "jump_side")
+		else:
+			rotate_and_play(92.5, "jump_side")
 	elif state == "side_fall":
-		animation_player.play("fall_side")
+		if last_direction == 1:
+			rotate_and_play(-92.5, "fall_side")
+		else:
+			rotate_and_play(92.5, "fall_side")
 	elif state == "slide":
 		animation_player.play("slide")
 	
