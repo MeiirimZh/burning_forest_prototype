@@ -28,20 +28,20 @@ size = Vector3(2, 1, 1)
 size = Vector3(2, 1, 1)
 
 [sub_resource type="TextMesh" id="TextMesh_qsfjj"]
-text = "A to move left
-D to move right"
+text = "[A] to move left
+[D] to move right"
 font_size = 30
 
 [sub_resource type="TextMesh" id="TextMesh_tfp0a"]
-text = "J to jump"
+text = "[Space] to jump"
 font_size = 30
 
 [sub_resource type="TextMesh" id="TextMesh_kva5i"]
-text = "L to slide"
+text = "[K] to slide"
 font_size = 30
 
 [sub_resource type="TextMesh" id="TextMesh_1wes7"]
-text = "K to attack"
+text = "[J] to attack"
 font_size = 30
 
 [node name="World" type="Node"]
