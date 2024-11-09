@@ -38,8 +38,9 @@ func set_idle():
 		
 func spawn_projectile():
 	var projectile_instance = projectile_scene.instantiate()
-	var spawn_position = self.global_position + Vector3(1, 1, 0)
+	var spawn_position = self.global_position + Vector3(last_direction, 1, 0)
 	
+	projectile_instance.direction = last_direction
 	projectile_instance.position = spawn_position
 	
 	get_tree().current_scene.add_child(projectile_instance)
