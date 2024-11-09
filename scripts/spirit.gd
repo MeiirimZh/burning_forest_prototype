@@ -5,6 +5,7 @@ extends CharacterBody3D
 @onready var mesh = $Armature
 @onready var slide_timer = $SlideTimer
 @onready var slide_cooldown_timer = $SlideCooldownTimer
+@onready var attack_cooldown_timer = $AttackCooldownTimer
 @onready var collision_shape = $CollisionShape3D
 
 # Scenes
@@ -19,10 +20,12 @@ extends CharacterBody3D
 
 # Variables
 @export var state := "r_idle"
+@export var attack_cooldown_duration := 0.5
 var is_jumping := false
 var is_sliding := false
 var last_direction := 1
 var can_slide := true
+var can_attack := true
 
 # Rotate the mesh and play an animation 
 func rotate_and_play(angle, animation):
@@ -49,8 +52,10 @@ func _physics_process(_delta) -> void:
 	var direction = 0
 	
 	# Attack
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack") and not is_sliding and can_attack:
 		spawn_projectile()
+		can_attack = false
+		attack_cooldown_timer.start(attack_cooldown_duration)
 	
 	# Check the state and play the corresponding animation
 	if state == "r_idle":
@@ -79,7 +84,10 @@ func _physics_process(_delta) -> void:
 		else:
 			rotate_and_play(92.5, "fall_side")
 	elif state == "slide":
-		animation_player.play("slide")
+		if last_direction == 1:
+			rotate_and_play(0, "slide")
+		else:
+			rotate_and_play(85, "slide")
 	
 	# Running
 	if Input.is_action_pressed("left"):
@@ -138,3 +146,6 @@ func _on_slide_timer_timeout() -> void:
 
 func _on_slide_cooldown_timer_timeout() -> void:
 	can_slide = true
+
+func _on_attack_cooldown_timer_timeout() -> void:
+	can_attack = true

@@ -22,8 +22,10 @@ size = Vector2(20, 1)
 data = PackedVector3Array(10, 0, 0.5, -10, 0, 0.5, 10, 0, -0.5, -10, 0, 0.5, -10, 0, -0.5, 10, 0, -0.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_mklw4"]
+size = Vector3(1.5, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_574fm"]
+size = Vector3(1.5, 1, 1)
 
 [sub_resource type="TextMesh" id="TextMesh_qsfjj"]
 text = "A to move left
@@ -59,7 +61,7 @@ shape = SubResource("ConcavePolygonShape3D_a8b2k")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.84597, 0, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.65208, 0.504425, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.92893, 0.504425, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("BoxMesh_mklw4")
