@@ -4,7 +4,7 @@ extends Area3D
 @onready var dtimer = $DisappearanceTimer
 
 # Physics variables
-@export var speed := 7.0
+@export var speed := 8.0
 
 # Variables
 @export var disappearance_time := 2.0

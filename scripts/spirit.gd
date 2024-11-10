@@ -23,6 +23,7 @@ extends CharacterBody3D
 @export var attack_cooldown_duration := 0.5
 var is_jumping := false
 var is_sliding := false
+var is_attacking := false
 var last_direction := 1
 var can_slide := true
 var can_attack := true
@@ -41,7 +42,7 @@ func set_idle():
 		
 func spawn_projectile():
 	var projectile_instance = projectile_scene.instantiate()
-	var spawn_position = self.global_position + Vector3(last_direction, 1, 0)
+	var spawn_position = self.global_position + Vector3(last_direction, 1.2, 0)
 	
 	projectile_instance.direction = last_direction
 	projectile_instance.position = spawn_position
@@ -54,6 +55,7 @@ func _physics_process(_delta) -> void:
 	# Attack
 	if Input.is_action_just_pressed("attack") and not is_sliding and can_attack:
 		spawn_projectile()
+		is_attacking = true
 		can_attack = false
 		attack_cooldown_timer.start(attack_cooldown_duration)
 	
@@ -88,6 +90,21 @@ func _physics_process(_delta) -> void:
 			rotate_and_play(0, "slide")
 		else:
 			rotate_and_play(85, "slide")
+	elif state == "idle_attack":
+		if last_direction == 1:
+			rotate_and_play(0, "attack_idle")
+		else:
+			rotate_and_play(85, "attack_idle")
+	elif state == "run_attack":
+		if last_direction == 1:
+			rotate_and_play(-92.5, "attack_run")
+		else:
+			rotate_and_play(92.5, "attack_run")
+	elif state == "jump_attack":
+		if last_direction == 1:
+			rotate_and_play(0, "attack_jump")
+		else:
+			rotate_and_play(85, "attack_jump")
 	
 	# Running
 	if Input.is_action_pressed("left"):
@@ -100,14 +117,22 @@ func _physics_process(_delta) -> void:
 		last_direction = 1
 	
 	# Reset the state to idle after a movement
-	if velocity.x == 0 and is_on_floor():
+	if velocity.x == 0 and is_on_floor() and not is_attacking:
 		set_idle()
+		
+	if is_attacking:
+		if velocity.x == 0 and not is_jumping:
+			state = "idle_attack"
+		elif is_jumping:
+			state = "jump_attack"
+		else:
+			state = "run_attack"
 	
 	if not is_on_floor():
 		velocity.y -= gravity * _delta
-		if velocity.y < 0 and velocity.x == 0:
+		if velocity.y < 0 and velocity.x == 0 and not is_attacking:
 			state = "front_fall"
-		if velocity.y < 0 and velocity.x != 0:
+		if velocity.y < 0 and velocity.x != 0 and not is_attacking:
 			state = "side_fall"
 	else:
 		if is_jumping:
@@ -117,9 +142,9 @@ func _physics_process(_delta) -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_force
 		is_jumping = true
-		if velocity.x == 0:
+		if velocity.x == 0 and not is_attacking:
 			state = "front_jump"
-		else:
+		elif velocity.x != 0 and not is_attacking:
 			state = "side_jump"
 			
 	if Input.is_action_just_pressed("slide") and is_on_floor() and can_slide:
@@ -148,4 +173,5 @@ func _on_slide_cooldown_timer_timeout() -> void:
 	can_slide = true
 
 func _on_attack_cooldown_timer_timeout() -> void:
+	is_attacking = false
 	can_attack = true

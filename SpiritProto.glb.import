@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bmwwqprj53gk3"
-path="res://.godot/imported/SpiritProto.glb-4230c9e13618bd343906bd0bc3f77fa0.scn"
+uid="uid://beok05eo5kwbp"
+path="res://.godot/imported/SpiritProto.glb-9fd69ea212693dbd1fc0c66584c57ef8.scn"
 
 [deps]
 
-source_file="res://models/SpiritProto.glb"
-dest_files=["res://.godot/imported/SpiritProto.glb-4230c9e13618bd343906bd0bc3f77fa0.scn"]
+source_file="res://SpiritProto.glb"
+dest_files=["res://.godot/imported/SpiritProto.glb-9fd69ea212693dbd1fc0c66584c57ef8.scn"]
 
 [params]
 
