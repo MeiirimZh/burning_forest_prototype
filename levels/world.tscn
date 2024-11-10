@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://b7tpk1lt4xo34"]
+[gd_scene load_steps=16 format=3 uid="uid://b7tpk1lt4xo34"]
 
 [ext_resource type="PackedScene" uid="uid://ck1rkve1atrlh" path="res://scenes/spirit.tscn" id="1_1hhqs"]
+[ext_resource type="PackedScene" uid="uid://k72wmgih1jpx" path="res://scenes/merc.tscn" id="2_2aes2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sgncv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -114,3 +115,6 @@ mesh = SubResource("BoxMesh_gthcv")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyProjectileTemplate"]
 shape = SubResource("BoxShape3D_okl02")
+
+[node name="Merc" parent="." instance=ExtResource("2_2aes2")]
+transform = Transform3D(-0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, -0.939693, 8.74157, 0, 0)
