@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://k72wmgih1jpx"]
+[gd_scene load_steps=14 format=4 uid="uid://k72wmgih1jpx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2cjr7"]
 resource_name = "Red"
@@ -702,6 +702,9 @@ _data = {
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b7yll"]
 height = 1.8
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cfx40"]
+radius = 4.0
+
 [node name="Merc" type="CharacterBody3D"]
 
 [node name="Armature" type="Node3D" parent="."]
@@ -828,7 +831,7 @@ bones/16/rotation = Quaternion(-0.0975353, 0.679433, -0.674388, -0.272136)
 bones/16/scale = Vector3(1, 1, 1)
 
 [node name="flamethrower" type="BoneAttachment3D" parent="Armature/Skeleton3D"]
-transform = Transform3D(-0.155461, 0.0143328, 0.268861, 0.0297862, 0.30947, 0.000725251, 0.26759, -0.0261211, 0.156118, 0.211773, 1.0483, 0.394719)
+transform = Transform3D(-0.155461, 0.0143328, 0.268861, 0.029786, 0.30947, 0.00072518, 0.26759, -0.0261209, 0.156118, 0.211773, 1.0483, 0.394718)
 bone_name = "flamethrower"
 bone_idx = 12
 
@@ -848,3 +851,9 @@ libraries = {
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_b7yll")
+
+[node name="DetectPlayer" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectPlayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_cfx40")
