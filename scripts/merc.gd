@@ -9,9 +9,9 @@ extends CharacterBody3D
 # Variables
 var player_detected = false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if player_detected:
-		if position.y in range(player.position.y-2, player.position.y+0.5):
+		if abs(position.y - player.position.y) <= 2:
 			animation_player.play("idle_straight")
 		else:
 			animation_player.play("idle_up")
