@@ -11,6 +11,8 @@ extends CharacterBody3D
 
 # Variables
 @export var attack_cooldown_duration := 2.0
+@export var hp := 1
+@export var dmg_value := 1
 var player_detected := false
 var can_attack := true
 var direction := -1
@@ -58,6 +60,9 @@ func _process(_delta: float) -> void:
 		spawn_projectile()
 		can_attack = false
 		attack_cooldown_timer.start(attack_cooldown_duration)
+		
+	if hp == 0:
+		queue_free()
 
 func _on_detect_player_body_entered(body: Node3D) -> void:
 	if body.name == "Spirit":
@@ -69,3 +74,7 @@ func _on_detect_player_body_exited(body: Node3D) -> void:
 
 func _on_attack_cooldown_timer_timeout() -> void:
 	can_attack = true
+
+func _on_detect_damage_body_entered(body: Node3D) -> void:
+	if body.name == "SpiritProjectile":
+		hp -= dmg_value

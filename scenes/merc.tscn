@@ -707,7 +707,8 @@ height = 1.8
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_cfx40"]
 radius = 8.0
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_8o8hs"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_y1gd3"]
+size = Vector3(1, 2, 2)
 
 [node name="Merc" type="CharacterBody3D"]
 script = ExtResource("1_ol2mo")
@@ -867,10 +868,11 @@ shape = SubResource("CylinderShape3D_cfx40")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectDamage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CylinderShape3D_8o8hs")
+shape = SubResource("BoxShape3D_y1gd3")
 
 [node name="AttackCooldownTimer" type="Timer" parent="."]
 
 [connection signal="body_entered" from="DetectPlayer" to="." method="_on_detect_player_body_entered"]
 [connection signal="body_exited" from="DetectPlayer" to="." method="_on_detect_player_body_exited"]
+[connection signal="body_entered" from="DetectDamage" to="." method="_on_detect_damage_body_entered"]
 [connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_attack_cooldown_timer_timeout"]
