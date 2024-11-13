@@ -23,3 +23,5 @@ mesh = SubResource("SphereMesh_bkig8")
 shape = SubResource("BoxShape3D_nq2hn")
 
 [node name="DisappearanceTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="DisappearanceTimer" to="." method="_on_disappearance_timer_timeout"]
