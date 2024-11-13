@@ -20,7 +20,7 @@ extends CharacterBody3D
 
 # Variables
 @export var state := "r_idle"
-@export var attack_cooldown_duration := 0.5
+@export var attack_cooldown_duration := 0.3
 var is_jumping := false
 var is_sliding := false
 var is_attacking := false
@@ -147,7 +147,7 @@ func _physics_process(_delta) -> void:
 		elif velocity.x != 0 and not is_attacking:
 			state = "side_jump"
 			
-	if Input.is_action_just_pressed("slide") and is_on_floor() and can_slide:
+	if Input.is_action_just_pressed("slide") and is_on_floor() and can_slide and not is_attacking:
 		is_sliding = true
 		can_slide = false
 		slide_timer.start(slide_duration)
