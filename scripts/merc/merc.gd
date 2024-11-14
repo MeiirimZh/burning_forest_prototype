@@ -71,8 +71,7 @@ func _on_detect_player_body_exited(body: Node3D) -> void:
 func _on_attack_cooldown_timer_timeout() -> void:
 	can_attack = true
 
-
-func _on_detect_damage_damage_taken(dam: Variant) -> void:
+func _on_detect_damage_merc_damage_taken(dam: Variant) -> void:
 	hp -= dam
 	if hp <= 0:
 		queue_free()

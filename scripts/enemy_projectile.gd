@@ -19,4 +19,7 @@ func move(delta):
 func _physics_process(delta: float) -> void:
 	move(delta)
 	if ray.is_colliding():
+		ray.enabled = false
+		if ray.get_collider().is_in_group("spirit"):
+			ray.get_collider().hit()
 		queue_free()

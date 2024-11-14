@@ -2657,7 +2657,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 6)
 
 [node name="AttackCooldownTimer" type="Timer" parent="."]
 
-[node name="DetectDamage" type="Area3D" parent="."]
+[node name="DetectDamage" type="Area3D" parent="." groups=["spirit"]]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("2_0pivw")
@@ -2669,3 +2669,4 @@ shape = SubResource("BoxShape3D_ferxt")
 [connection signal="timeout" from="SlideTimer" to="." method="_on_slide_timer_timeout"]
 [connection signal="timeout" from="SlideCooldownTimer" to="." method="_on_slide_cooldown_timer_timeout"]
 [connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_attack_cooldown_timer_timeout"]
+[connection signal="spirit_damage_taken" from="DetectDamage" to="." method="_on_detect_damage_spirit_damage_taken"]

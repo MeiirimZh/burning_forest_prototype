@@ -21,6 +21,7 @@ extends CharacterBody3D
 # Variables
 @export var state := "r_idle"
 @export var attack_cooldown_duration := 0.3
+@export var hp := 5
 var is_jumping := false
 var is_sliding := false
 var is_attacking := false
@@ -175,3 +176,7 @@ func _on_slide_cooldown_timer_timeout() -> void:
 func _on_attack_cooldown_timer_timeout() -> void:
 	is_attacking = false
 	can_attack = true
+
+# Take damage
+func _on_detect_damage_spirit_damage_taken(dam: Variant) -> void:
+	hp -= dam

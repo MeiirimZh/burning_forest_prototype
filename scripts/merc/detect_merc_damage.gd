@@ -4,7 +4,7 @@ extends Area3D
 @export var damage := 1
 
 # Signals
-signal damage_taken(dam)
+signal merc_damage_taken(dam)
 
 func hit():
-	emit_signal("damage_taken", damage)
+	emit_signal("merc_damage_taken", damage)
