@@ -1,29 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjtptxy7jkotn"]
+[gd_scene load_steps=4 format=3 uid="uid://cjtptxy7jkotn"]
 
 [ext_resource type="Script" path="res://scripts/spirit_projectile.gd" id="1_w74fs"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jxl6v"]
-albedo_color = Color(6.97896e-07, 0.430378, 0.064752, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lrg6k"]
+albedo_color = Color(3.97079e-06, 0.521988, 0.285858, 1)
 
-[sub_resource type="SphereMesh" id="SphereMesh_bkig8"]
-material = SubResource("StandardMaterial3D_jxl6v")
-radius = 0.125
-height = 0.25
+[sub_resource type="BoxMesh" id="BoxMesh_jyss8"]
+material = SubResource("StandardMaterial3D_lrg6k")
+size = Vector3(0.5, 0.05, 0.05)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_nq2hn"]
-size = Vector3(0.25, 0.25, 0.25)
-
-[node name="SpiritProjectile" type="CharacterBody3D"]
-collision_layer = 2
-collision_mask = 2
+[node name="SpiritProjectile" type="Node3D"]
 script = ExtResource("1_w74fs")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_bkig8")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_nq2hn")
+mesh = SubResource("BoxMesh_jyss8")
 
 [node name="DisappearanceTimer" type="Timer" parent="."]
 
-[connection signal="timeout" from="DisappearanceTimer" to="." method="_on_disappearance_timer_timeout"]
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(-2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, 0, 0, 0.5, -0.239238, 0, 0)
