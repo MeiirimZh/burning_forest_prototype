@@ -837,7 +837,7 @@ bones/16/rotation = Quaternion(-0.0975353, 0.679433, -0.674388, -0.272136)
 bones/16/scale = Vector3(1, 1, 1)
 
 [node name="flamethrower" type="BoneAttachment3D" parent="Armature/Skeleton3D"]
-transform = Transform3D(-0.155461, 0.0143328, 0.26886, 0.029786, 0.30947, 0.000725171, 0.26759, -0.0261209, 0.156118, 0.211773, 1.0483, 0.394718)
+transform = Transform3D(-0.155461, 0.0143328, 0.268861, 0.029786, 0.30947, 0.00072518, 0.26759, -0.0261209, 0.156118, 0.211773, 1.0483, 0.394718)
 bone_name = "flamethrower"
 bone_idx = 12
 
@@ -865,6 +865,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_cfx40")
 
 [node name="DetectDamage" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectDamage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

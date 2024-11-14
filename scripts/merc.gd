@@ -60,9 +60,6 @@ func _process(_delta: float) -> void:
 		spawn_projectile()
 		can_attack = false
 		attack_cooldown_timer.start(attack_cooldown_duration)
-		
-	if hp == 0:
-		queue_free()
 
 func _on_detect_player_body_entered(body: Node3D) -> void:
 	if body.name == "Spirit":
@@ -78,3 +75,6 @@ func _on_attack_cooldown_timer_timeout() -> void:
 func _on_detect_damage_body_entered(body: Node3D) -> void:
 	if body.name == "SpiritProjectile":
 		hp -= dmg_value
+		body.queue_free()
+		if hp == 0:
+			queue_free()
