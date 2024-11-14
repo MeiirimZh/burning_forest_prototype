@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://b7tpk1lt4xo34"]
+[gd_scene load_steps=17 format=3 uid="uid://b7tpk1lt4xo34"]
 
 [ext_resource type="PackedScene" uid="uid://ck1rkve1atrlh" path="res://scenes/spirit.tscn" id="1_1hhqs"]
 [ext_resource type="PackedScene" uid="uid://k72wmgih1jpx" path="res://scenes/merc.tscn" id="2_2aes2"]
+[ext_resource type="PackedScene" uid="uid://ibl0444sg4cs" path="res://scenes/gui/hud.tscn" id="2_p0i8m"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sgncv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -70,6 +71,8 @@ shape = SubResource("ConcavePolygonShape3D_a8b2k")
 
 [node name="Spirit" parent="." instance=ExtResource("1_1hhqs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.84597, 0, 0)
+
+[node name="HUD" parent="Spirit" instance=ExtResource("2_p0i8m")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.17232, 0.504425, 0)
