@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=4 uid="uid://k72wmgih1jpx"]
+[gd_scene load_steps=17 format=4 uid="uid://k72wmgih1jpx"]
 
-[ext_resource type="Script" path="res://scripts/merc.gd" id="1_ol2mo"]
+[ext_resource type="Script" path="res://scripts/merc/merc.gd" id="1_ol2mo"]
+[ext_resource type="Script" path="res://scripts/merc/detect_merc_damage.gd" id="2_xd272"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2cjr7"]
 resource_name = "Red"
@@ -864,9 +865,10 @@ shape = SubResource("CapsuleShape3D_b7yll")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_cfx40")
 
-[node name="DetectDamage" type="Area3D" parent="."]
+[node name="DetectDamage" type="Area3D" parent="." groups=["enemy"]]
 collision_layer = 2
 collision_mask = 2
+script = ExtResource("2_xd272")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectDamage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -876,5 +878,5 @@ shape = SubResource("BoxShape3D_y1gd3")
 
 [connection signal="body_entered" from="DetectPlayer" to="." method="_on_detect_player_body_entered"]
 [connection signal="body_exited" from="DetectPlayer" to="." method="_on_detect_player_body_exited"]
-[connection signal="body_entered" from="DetectDamage" to="." method="_on_detect_damage_body_entered"]
+[connection signal="damage_taken" from="DetectDamage" to="." method="_on_detect_damage_damage_taken"]
 [connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_attack_cooldown_timer_timeout"]
