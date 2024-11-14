@@ -1,4 +1,7 @@
-extends Area3D
+extends Node3D
+
+# Nodes
+@onready var ray = $RayCast3D
 
 # Physics variables
 @export var speed := 8.0
@@ -15,3 +18,5 @@ func move(delta):
 
 func _physics_process(delta: float) -> void:
 	move(delta)
+	if ray.is_colliding():
+		queue_free()
