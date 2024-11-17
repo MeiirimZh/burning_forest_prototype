@@ -10,6 +10,7 @@ extends CharacterBody3D
 
 # Scenes
 @export var projectile_scene : PackedScene = preload("res://scenes/spirit_projectile.tscn")
+@export var game_over_scene : PackedScene = preload("res://levels/gameover.tscn")
 
 # Physics variables
 @export var speed := 7.0
@@ -181,3 +182,6 @@ func _on_attack_cooldown_timer_timeout() -> void:
 func _on_detect_damage_spirit_damage_taken(dam: Variant) -> void:
 	hp -= dam
 	Global.player_damaged = true
+	if hp <= 0:
+		Global.player_damaged = false
+		get_tree().change_scene_to_packed(game_over_scene)

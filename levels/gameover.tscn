@@ -1,12 +1,15 @@
-[gd_scene format=3 uid="uid://cx03xee263xhy"]
+[gd_scene load_steps=2 format=3 uid="uid://cx03xee263xhy"]
 
-[node name="Control" type="Control"]
+[ext_resource type="Script" path="res://scripts/levels/gameover.gd" id="1_rm8hj"]
+
+[node name="Game Over" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_rm8hj")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -21,7 +24,7 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 40
 text = "Game Over!"
 
-[node name="Button" type="Button" parent="."]
+[node name="ReplayBtn" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -37,7 +40,7 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 24
 text = "Replay"
 
-[node name="Button2" type="Button" parent="."]
+[node name="QuitBtn" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -52,3 +55,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 24
 text = "Quit"
+
+[connection signal="pressed" from="ReplayBtn" to="." method="_on_replay_btn_pressed"]
+[connection signal="pressed" from="QuitBtn" to="." method="_on_quit_btn_pressed"]
