@@ -1,8 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://ibl0444sg4cs"]
+[gd_scene load_steps=2 format=3 uid="uid://ibl0444sg4cs"]
 
 [ext_resource type="Texture2D" uid="uid://bbd3ar5unjttp" path="res://images/heart.png" id="1_7g3wk"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_066we"]
 
 [node name="HUD" type="CanvasLayer"]
 follow_viewport_enabled = true
@@ -24,7 +22,6 @@ offset_bottom = 66.0
 metadata/_edit_group_ = true
 
 [node name="Heart1" type="TextureRect" parent="Control/Hearts"]
-material = SubResource("ShaderMaterial_066we")
 layout_mode = 2
 texture = ExtResource("1_7g3wk")
 expand_mode = 3
