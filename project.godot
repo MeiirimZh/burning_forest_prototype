@@ -27,7 +27,8 @@ folder_colors={
 "res://levels/": "blue",
 "res://models/": "orange",
 "res://scenes/": "green",
-"res://scripts/": "yellow"
+"res://scripts/": "yellow",
+"res://shaders/": "purple"
 }
 
 [input]
