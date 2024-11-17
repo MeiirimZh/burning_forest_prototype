@@ -180,3 +180,4 @@ func _on_attack_cooldown_timer_timeout() -> void:
 # Take damage
 func _on_detect_damage_spirit_damage_taken(dam: Variant) -> void:
 	hp -= dam
+	Global.player_damaged = true
