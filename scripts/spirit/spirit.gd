@@ -7,6 +7,7 @@ extends CharacterBody3D
 @onready var slide_cooldown_timer = $SlideCooldownTimer
 @onready var attack_cooldown_timer = $AttackCooldownTimer
 @onready var collision_shape = $CollisionShape3D
+@onready var detect_dmg_collision_shape = $DetectDamage/CollisionShape3D
 
 # Scenes
 @export var projectile_scene : PackedScene = preload("res://scenes/spirit_projectile.tscn")
@@ -158,8 +159,13 @@ func _physics_process(_delta) -> void:
 	if is_sliding:
 		if velocity.x == 0:
 			state = "slide"
+			# Change collision shape to go through smaller spaces
 			collision_shape.transform.origin.y = 0.5
 			collision_shape.shape.height = 1
+			# Change collision shape to avoid attack
+			detect_dmg_collision_shape.position = Vector3(0, 0.5, 0)
+			detect_dmg_collision_shape.shape.size = Vector3(1, 1, 1)
+			
 			velocity.x = last_direction * speed * 2
 	else:
 		velocity.x = direction * speed
@@ -170,6 +176,9 @@ func _on_slide_timer_timeout() -> void:
 	is_sliding = false
 	collision_shape.transform.origin.y = 0.85
 	collision_shape.shape.height = 1.7
+	
+	detect_dmg_collision_shape.position = Vector3(0, 0.85, 0)
+	detect_dmg_collision_shape.shape.size = Vector3(1, 1.7, 1)
 
 func _on_slide_cooldown_timer_timeout() -> void:
 	can_slide = true
