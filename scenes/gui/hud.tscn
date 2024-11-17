@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://ibl0444sg4cs"]
+[gd_scene load_steps=3 format=3 uid="uid://ibl0444sg4cs"]
 
 [ext_resource type="Texture2D" uid="uid://bbd3ar5unjttp" path="res://images/heart.png" id="1_7g3wk"]
 
-[node name="HUD" type="Control"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_066we"]
+
+[node name="HUD" type="CanvasLayer"]
+follow_viewport_enabled = true
+
+[node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,38 +15,36 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Control" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+[node name="Hearts" type="HBoxContainer" parent="Control"]
 layout_mode = 1
-offset_right = 5351.0
-offset_bottom = 1280.0
-scale = Vector2(0.05, 0.05)
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 276.0
+offset_bottom = 66.0
+metadata/_edit_group_ = true
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/HBoxContainer"]
+[node name="Heart1" type="TextureRect" parent="Control/Hearts"]
+material = SubResource("ShaderMaterial_066we")
 layout_mode = 2
 texture = ExtResource("1_7g3wk")
+expand_mode = 3
 
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Control/HBoxContainer"]
+[node name="Heart2" type="TextureRect" parent="Control/Hearts"]
 layout_mode = 2
 texture = ExtResource("1_7g3wk")
+expand_mode = 3
 
-[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/Control/HBoxContainer"]
+[node name="Heart3" type="TextureRect" parent="Control/Hearts"]
 layout_mode = 2
 texture = ExtResource("1_7g3wk")
+expand_mode = 3
 
-[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/Control/HBoxContainer"]
+[node name="Heart4" type="TextureRect" parent="Control/Hearts"]
 layout_mode = 2
 texture = ExtResource("1_7g3wk")
+expand_mode = 3
 
-[node name="TextureRect5" type="TextureRect" parent="CanvasLayer/Control/HBoxContainer"]
+[node name="Heart5" type="TextureRect" parent="Control/Hearts"]
 layout_mode = 2
 texture = ExtResource("1_7g3wk")
+expand_mode = 3
