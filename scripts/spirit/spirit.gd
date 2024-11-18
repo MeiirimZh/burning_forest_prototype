@@ -6,6 +6,7 @@ extends CharacterBody3D
 @onready var slide_timer = $SlideTimer
 @onready var slide_cooldown_timer = $SlideCooldownTimer
 @onready var attack_cooldown_timer = $AttackCooldownTimer
+@onready var damage_timer = $DamageTimer
 @onready var collision_shape = $CollisionShape3D
 @onready var detect_dmg_collision_shape = $DetectDamage/CollisionShape3D
 
@@ -23,13 +24,17 @@ extends CharacterBody3D
 # Variables
 @export var state := "r_idle"
 @export var attack_cooldown_duration := 0.3
+@export var damage_cooldown_duration := 1.0
 @export var hp := 5
+var last_direction := 1
+
+# Flags
 var is_jumping := false
 var is_sliding := false
 var is_attacking := false
-var last_direction := 1
 var can_slide := true
 var can_attack := true
+var can_take_damage := true
 
 # Rotate the mesh and play an animation 
 func rotate_and_play(angle, animation):
@@ -186,11 +191,20 @@ func _on_slide_cooldown_timer_timeout() -> void:
 func _on_attack_cooldown_timer_timeout() -> void:
 	is_attacking = false
 	can_attack = true
+	
+func _on_damage_timer_timeout() -> void:
+	can_take_damage = true
 
 # Take damage
 func _on_detect_damage_spirit_damage_taken(dam: Variant) -> void:
-	hp -= dam
-	Global.player_damaged = true
-	if hp <= 0:
-		Global.player_damaged = false
-		get_tree().change_scene_to_packed(game_over_scene)
+	if can_take_damage:
+		hp -= dam
+		Global.player_damaged = true
+		
+		# Temporary invulnerability
+		can_take_damage = false
+		damage_timer.start(damage_cooldown_duration)
+		
+		if hp <= 0:
+			Global.player_damaged = false
+			get_tree().change_scene_to_packed(game_over_scene)
