@@ -115,11 +115,11 @@ func _physics_process(_delta) -> void:
 			rotate_and_play(85, "attack_jump")
 	
 	# Running
-	if Input.is_action_pressed("left"):
+	if Input.is_action_pressed("left") and not is_sliding:
 		direction = -1
 		state = "l_run"
 		last_direction = -1
-	elif Input.is_action_pressed("right"):
+	elif Input.is_action_pressed("right") and not is_sliding:
 		direction = 1
 		state = "r_run"
 		last_direction = 1
@@ -162,16 +162,18 @@ func _physics_process(_delta) -> void:
 		slide_cooldown_timer.start(slide_cooldown_duration)
 		
 	if is_sliding:
-		if velocity.x == 0:
+		if is_jumping:
+			state = "side_jump"
+		else:
 			state = "slide"
-			# Change collision shape to go through smaller spaces
-			collision_shape.transform.origin.y = 0.5
-			collision_shape.shape.height = 1
-			# Change collision shape to avoid attack
-			detect_dmg_collision_shape.position = Vector3(0, 0.5, 0)
-			detect_dmg_collision_shape.shape.size = Vector3(1, 1, 1)
+		# Change collision shape to go through smaller spaces
+		collision_shape.transform.origin.y = 0.5
+		collision_shape.shape.height = 1
+		# Change collision shape to avoid attack
+		detect_dmg_collision_shape.position = Vector3(0, 0.5, 0)
+		detect_dmg_collision_shape.shape.size = Vector3(1, 1, 1)
 			
-			velocity.x = last_direction * speed * 2
+		velocity.x = last_direction * speed * 2
 	else:
 		velocity.x = direction * speed
 	
