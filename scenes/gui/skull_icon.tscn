@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://yc5s7ae3iafr"]
+
+[ext_resource type="Texture2D" uid="uid://cpawjn78k4jv2" path="res://images/skull.png" id="1_tsm84"]
+
+[node name="SkullIcon" type="TextureRect"]
+texture = ExtResource("1_tsm84")
+expand_mode = 3

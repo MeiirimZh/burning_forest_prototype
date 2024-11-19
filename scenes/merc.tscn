@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=4 uid="uid://k72wmgih1jpx"]
+[gd_scene load_steps=19 format=4 uid="uid://k72wmgih1jpx"]
 
 [ext_resource type="Script" path="res://scripts/merc/merc.gd" id="1_ol2mo"]
 [ext_resource type="Script" path="res://scripts/merc/detect_merc_damage.gd" id="2_xd272"]
+[ext_resource type="Script" path="res://scripts/enemy_hp_icons.gd" id="3_5a3ip"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2cjr7"]
 resource_name = "Red"
@@ -712,6 +713,9 @@ radius = 8.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_y1gd3"]
 size = Vector3(1, 2, 2)
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_wvua5"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
 [node name="Merc" type="CharacterBody3D"]
 script = ExtResource("1_ol2mo")
 
@@ -876,6 +880,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_y1gd3")
 
 [node name="AttackCooldownTimer" type="Timer" parent="."]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+billboard = 2
+texture = SubResource("ViewportTexture_wvua5")
+script = ExtResource("3_5a3ip")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+transparent_bg = true
+size = Vector2i(1152, 648)
+
+[node name="MarginContainer" type="MarginContainer" parent="Sprite3D/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 600
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Sprite3D/SubViewport/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
 
 [connection signal="body_entered" from="DetectPlayer" to="." method="_on_detect_player_body_entered"]
 [connection signal="body_exited" from="DetectPlayer" to="." method="_on_detect_player_body_exited"]
