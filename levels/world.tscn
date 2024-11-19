@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://b7tpk1lt4xo34"]
+[gd_scene load_steps=22 format=3 uid="uid://b7tpk1lt4xo34"]
 
 [ext_resource type="PackedScene" uid="uid://ck1rkve1atrlh" path="res://scenes/spirit.tscn" id="1_1hhqs"]
 [ext_resource type="PackedScene" uid="uid://k72wmgih1jpx" path="res://scenes/merc.tscn" id="2_2aes2"]
 [ext_resource type="PackedScene" uid="uid://ibl0444sg4cs" path="res://scenes/gui/hud.tscn" id="2_p0i8m"]
+[ext_resource type="PackedScene" uid="uid://c0nunh5h4qu7g" path="res://scenes/apple.tscn" id="4_o1u6y"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sgncv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -75,7 +76,7 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="Spirit" parent="." instance=ExtResource("1_1hhqs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.0584, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4734, 0, 0)
 
 [node name="HUD" parent="Spirit" instance=ExtResource("2_p0i8m")]
 
@@ -173,3 +174,6 @@ shape = SubResource("BoxShape3D_e7xvf")
 [node name="Merc2" parent="." instance=ExtResource("2_2aes2")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 42.6042, 0, 0)
 hp = 2
+
+[node name="Apple" parent="." instance=ExtResource("4_o1u6y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.50921, 0.679423, 0)

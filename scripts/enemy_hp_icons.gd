@@ -25,7 +25,7 @@ func _ready() -> void:
 		
 		hboxcontainer.add_child(skull_icon_instance)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if parent.merc_damaged:
 		skulls[parent.hp].material = darken_img_sm
 		parent.merc_damaged = false

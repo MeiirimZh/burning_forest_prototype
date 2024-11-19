@@ -60,6 +60,8 @@ func spawn_projectile():
 func _physics_process(_delta) -> void:
 	var direction = 0
 	
+	print(hp)
+	
 	# Attack
 	if Input.is_action_just_pressed("attack") and not is_sliding and can_attack:
 		spawn_projectile()
