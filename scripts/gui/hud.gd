@@ -21,3 +21,8 @@ func _process(_delta: float) -> void:
 		hearts[player.hp].material = darken_img_sm  # Darken the heart by the hp index
 		
 		Global.player_damaged = false
+		
+	if Global.player_healed == true:
+		hearts[player.hp-1].material = null # Recover the heart by the hp index
+		
+		Global.player_healed = true
