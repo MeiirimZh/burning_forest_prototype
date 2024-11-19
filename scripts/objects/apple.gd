@@ -10,3 +10,7 @@ func _on_body_entered(body: Node3D) -> void:
 			Global.player_healed = true
 			
 			queue_free()
+		elif mode == "collect":
+			Global.score += 1
+			
+			queue_free()
