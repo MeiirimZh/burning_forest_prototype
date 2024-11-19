@@ -114,7 +114,7 @@ mesh = SubResource("TextMesh_54evl")
 
 [node name="Merc" parent="." instance=ExtResource("2_2aes2")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 32.9069, -0.0104131, 0.0500009)
-hp = 2
+hp = 3
 
 [node name="Ground" type="Node3D" parent="."]
 
@@ -172,3 +172,4 @@ shape = SubResource("BoxShape3D_e7xvf")
 
 [node name="Merc2" parent="." instance=ExtResource("2_2aes2")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 42.6042, 0, 0)
+hp = 2

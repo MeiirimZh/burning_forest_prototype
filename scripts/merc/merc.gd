@@ -15,6 +15,7 @@ extends CharacterBody3D
 var player_detected := false
 var can_attack := true
 var direction := -1
+var merc_damaged := false
 
 # Functions
 func spawn_projectile():
@@ -73,5 +74,6 @@ func _on_attack_cooldown_timer_timeout() -> void:
 
 func _on_detect_damage_merc_damage_taken(dam: Variant) -> void:
 	hp -= dam
+	merc_damaged = true
 	if hp <= 0:
 		queue_free()
