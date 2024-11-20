@@ -1,2 +1,4 @@
 Skull icon:
-Изображение <a href="https://pixabay.com/ru/users/vonkowen-2573689/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7320788">Sanda</a> с сайта <a href="https://pixabay.com/ru//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7320788">Pixabay</a>
+Image <a href="https://pixabay.com/ru/users/vonkowen-2573689/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7320788">Sanda</a> с сайта <a href="https://pixabay.com/ru//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7320788">Pixabay</a>
+Leaf icon:
+Image <a href="https://pixabay.com/ru/users/clker-free-vector-images-3736/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=312076">Clker-Free-Vector-Images</a> с сайта <a href="https://pixabay.com/ru//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=312076">Pixabay</a>

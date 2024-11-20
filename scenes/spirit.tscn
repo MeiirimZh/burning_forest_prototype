@@ -1,7 +1,8 @@
-[gd_scene load_steps=22 format=4 uid="uid://ck1rkve1atrlh"]
+[gd_scene load_steps=26 format=4 uid="uid://ck1rkve1atrlh"]
 
 [ext_resource type="Script" path="res://scripts/spirit/spirit.gd" id="1_ldjbo"]
 [ext_resource type="Script" path="res://scripts/spirit/detect_spirit_damage.gd" id="2_0pivw"]
+[ext_resource type="Texture2D" uid="uid://ygyj4tkqtm54" path="res://images/leaf.png" id="3_tkgbc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qvl7u"]
 resource_name = "body"
@@ -2516,6 +2517,23 @@ height = 1.7
 [sub_resource type="BoxShape3D" id="BoxShape3D_ferxt"]
 size = Vector3(1, 1.7, 1)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4tiuj"]
+lifetime_randomness = 0.5
+particle_flag_rotate_y = true
+angle_min = 10.0
+angle_max = 50.0
+direction = Vector3(0, 1, 1)
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jdxwn"]
+transparency = 1
+albedo_texture = ExtResource("3_tkgbc")
+
+[sub_resource type="QuadMesh" id="QuadMesh_xaaeu"]
+material = SubResource("StandardMaterial3D_jdxwn")
+size = Vector2(0.2, 0.2)
+
 [node name="Spirit" type="CharacterBody3D"]
 script = ExtResource("1_ldjbo")
 
@@ -2667,6 +2685,15 @@ script = ExtResource("2_0pivw")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectDamage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 shape = SubResource("BoxShape3D_ferxt")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.648695, 1.05799, 0)
+emitting = false
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_4tiuj")
+draw_pass_1 = SubResource("QuadMesh_xaaeu")
 
 [connection signal="timeout" from="SlideTimer" to="." method="_on_slide_timer_timeout"]
 [connection signal="timeout" from="SlideCooldownTimer" to="." method="_on_slide_cooldown_timer_timeout"]

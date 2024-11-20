@@ -9,6 +9,7 @@ extends CharacterBody3D
 @onready var damage_timer = $DamageTimer
 @onready var collision_shape = $CollisionShape3D
 @onready var detect_dmg_collision_shape = $DetectDamage/CollisionShape3D
+@onready var leaves_particles = $GPUParticles3D
 
 # Scenes
 @export var projectile_scene : PackedScene = preload("res://scenes/spirit_projectile.tscn")
@@ -65,6 +66,8 @@ func _physics_process(_delta) -> void:
 		spawn_projectile()
 		is_attacking = true
 		can_attack = false
+		leaves_particles.restart()
+		leaves_particles.emitting = true
 		attack_cooldown_timer.start(attack_cooldown_duration)
 	
 	# Check the state and play the corresponding animation
@@ -193,7 +196,7 @@ func _on_slide_cooldown_timer_timeout() -> void:
 func _on_attack_cooldown_timer_timeout() -> void:
 	is_attacking = false
 	can_attack = true
-	
+
 func _on_damage_timer_timeout() -> void:
 	can_take_damage = true
 
