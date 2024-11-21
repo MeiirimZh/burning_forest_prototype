@@ -9,7 +9,7 @@ extends CharacterBody3D
 @onready var damage_timer = $DamageTimer
 @onready var collision_shape = $CollisionShape3D
 @onready var detect_dmg_collision_shape = $DetectDamage/CollisionShape3D
-@onready var leaves_particles = $GPUParticles3D
+@onready var leaves_particles = $Armature/Leaves
 
 # Scenes
 @export var projectile_scene : PackedScene = preload("res://scenes/spirit_projectile.tscn")
