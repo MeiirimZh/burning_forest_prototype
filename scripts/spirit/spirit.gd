@@ -9,7 +9,7 @@ extends CharacterBody3D
 @onready var damage_timer = $DamageTimer
 @onready var collision_shape = $CollisionShape3D
 @onready var detect_dmg_collision_shape = $DetectDamage/CollisionShape3D
-@onready var leaves_particles = $Armature/Leaves
+@onready var leaves_particles = $Leaves
 
 # Scenes
 @export var projectile_scene : PackedScene = preload("res://scenes/spirit_projectile.tscn")
@@ -123,11 +123,13 @@ func _physics_process(_delta) -> void:
 	if Input.is_action_pressed("left") and not is_sliding:
 		direction = -1
 		state = "l_run"
+		leaves_particles.position = Vector3(-0.65, 1.05, 0)
 		last_direction = -1
 		
 	elif Input.is_action_pressed("right") and not is_sliding:
 		direction = 1
 		state = "r_run"
+		leaves_particles.position = Vector3(0.65, 1.05, 0)
 		last_direction = 1
 	
 	# Reset the state to idle after a movement
