@@ -48,7 +48,7 @@ func set_idle():
 		state = "r_idle"
 	else:
 		state = "l_idle"
-		
+
 func spawn_projectile():
 	var projectile_instance = projectile_scene.instantiate()
 	var spawn_position = self.global_position + Vector3(last_direction, 1.2, 0)
@@ -66,8 +66,10 @@ func _physics_process(_delta) -> void:
 		spawn_projectile()
 		is_attacking = true
 		can_attack = false
+
 		leaves_particles.restart()
 		leaves_particles.emitting = true
+		
 		attack_cooldown_timer.start(attack_cooldown_duration)
 	
 	# Check the state and play the corresponding animation
@@ -122,6 +124,7 @@ func _physics_process(_delta) -> void:
 		direction = -1
 		state = "l_run"
 		last_direction = -1
+		
 	elif Input.is_action_pressed("right") and not is_sliding:
 		direction = 1
 		state = "r_run"
