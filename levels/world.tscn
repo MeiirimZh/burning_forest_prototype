@@ -76,7 +76,7 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="Spirit" parent="." instance=ExtResource("1_1hhqs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4734, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.9511, 0, 0)
 
 [node name="HUD" parent="Spirit" instance=ExtResource("2_p0i8m")]
 

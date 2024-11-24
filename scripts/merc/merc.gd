@@ -21,6 +21,7 @@ var merc_damaged := false
 func spawn_projectile():
 	var projectile_instance = projectile_scene.instantiate()
 	var spawn_position
+	var spawn_rotation
 	
 	if abs(position.y - player.position.y) > 1.3:
 		projectile_instance.type = 'up'
@@ -28,15 +29,20 @@ func spawn_projectile():
 	# Align the spawn position based on direction and attack type
 	if direction == 1 and projectile_instance.type == "straight":
 		spawn_position = self.global_position + Vector3(direction, 1.2, 0)
+		spawn_rotation = Vector3(0, 0, 0)
 	elif direction == -1 and projectile_instance.type == "straight":
 		spawn_position = self.global_position + Vector3(direction-0.4, 1.2, 0)
+		spawn_rotation = Vector3(0, -160, 0)
 	elif direction == 1 and projectile_instance.type == "up":
 		spawn_position = self.global_position + Vector3(direction, 1.2, 0)
+		spawn_rotation = Vector3(0, 0, 35)
 	else:
 		spawn_position = self.global_position + Vector3(direction, 1.4, 0)
+		spawn_rotation = Vector3(0, -160, 35)
 	
 	projectile_instance.direction = direction
 	projectile_instance.position = spawn_position
+	projectile_instance.rotation = spawn_rotation
 	
 	get_tree().current_scene.add_child(projectile_instance)
 
