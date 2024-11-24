@@ -25,4 +25,4 @@ func _process(_delta: float) -> void:
 	if Global.player_healed == true:
 		hearts[player.hp-1].material = null # Recover the heart by the hp index
 		
-		Global.player_healed = true
+		Global.player_healed = false

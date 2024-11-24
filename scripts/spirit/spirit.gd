@@ -34,6 +34,8 @@ var last_direction := 1
 var is_jumping := false
 var is_sliding := false
 var is_attacking := false
+var can_run := true
+var can_jump := true
 var can_slide := true
 var can_attack := true
 var can_take_damage := true
@@ -119,22 +121,27 @@ func _physics_process(_delta) -> void:
 			rotate_and_play(0, "attack_jump")
 		else:
 			rotate_and_play(85, "attack_jump")
+	elif state == "death":
+		if last_direction == 1:
+			rotate_and_play(0, "death")
+		else:
+			rotate_and_play(85, "death")
 	
 	# Running
-	if Input.is_action_pressed("left") and not is_sliding:
+	if Input.is_action_pressed("left") and not is_sliding and can_run:
 		direction = -1
 		state = "l_run"
 		leaves_particles.position = Vector3(-0.65, 1.05, 0)
 		last_direction = -1
 		
-	elif Input.is_action_pressed("right") and not is_sliding:
+	elif Input.is_action_pressed("right") and not is_sliding and can_run:
 		direction = 1
 		state = "r_run"
 		leaves_particles.position = Vector3(0.65, 1.05, 0)
 		last_direction = 1
 	
 	# Reset the state to idle after a movement
-	if velocity.x == 0 and is_on_floor() and not is_attacking:
+	if velocity.x == 0 and is_on_floor() and not is_attacking and hp > 0:
 		set_idle()
 		
 	if is_attacking:
@@ -156,7 +163,7 @@ func _physics_process(_delta) -> void:
 			is_jumping = false
 			set_idle()
 		
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor() and can_jump:
 		velocity.y = jump_force
 		is_jumping = true
 		if velocity.x == 0 and not is_attacking:
@@ -179,8 +186,9 @@ func _physics_process(_delta) -> void:
 		collision_shape.transform.origin.y = 0.5
 		collision_shape.shape.height = 1
 		# Change collision shape to avoid attack
-		detect_dmg_collision_shape.position = Vector3(0, 0.5, 0)
-		detect_dmg_collision_shape.shape.size = Vector3(1, 1, 1)
+		if is_instance_valid(detect_dmg_collision_shape):
+			detect_dmg_collision_shape.position = Vector3(0, 0.5, 0)
+			detect_dmg_collision_shape.shape.size = Vector3(1, 1, 1)
 			
 		velocity.x = last_direction * speed * 2
 	else:
@@ -193,18 +201,21 @@ func _on_slide_timer_timeout() -> void:
 	collision_shape.transform.origin.y = 0.85
 	collision_shape.shape.height = 1.7
 	
-	detect_dmg_collision_shape.position = Vector3(0, 0.85, 0)
-	detect_dmg_collision_shape.shape.size = Vector3(1, 1.7, 1)
+	if is_instance_valid(detect_dmg_collision_shape):
+		detect_dmg_collision_shape.position = Vector3(0, 0.85, 0)
+		detect_dmg_collision_shape.shape.size = Vector3(1, 1.7, 1)
 
 func _on_slide_cooldown_timer_timeout() -> void:
-	can_slide = true
+	if hp > 0:
+		can_slide = true
 
 func _on_attack_cooldown_timer_timeout() -> void:
 	is_attacking = false
 	can_attack = true
 
 func _on_damage_timer_timeout() -> void:
-	can_take_damage = true
+	if hp > 0:
+		can_take_damage = true
 
 # Take damage
 func _on_detect_damage_spirit_damage_taken(dam: Variant) -> void:
@@ -220,5 +231,17 @@ func _on_detect_damage_spirit_damage_taken(dam: Variant) -> void:
 		blood_particles.emitting = true
 		
 		if hp <= 0:
-			Global.player_damaged = false
-			get_tree().change_scene_to_packed(game_over_scene)
+			can_take_damage = false
+			can_attack = false
+			can_slide = false
+			can_run = false
+			can_jump = false
+			
+			state = "death"
+			
+			# Make enemy projectiles go through the player
+			detect_dmg_collision_shape.queue_free()
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "death":
+		get_tree().change_scene_to_packed(game_over_scene)
