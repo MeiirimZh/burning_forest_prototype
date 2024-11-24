@@ -1,0 +1,69 @@
+[gd_scene load_steps=6 format=3 uid="uid://bgjv3vausb3"]
+
+[ext_resource type="Script" path="res://scripts/death_pit.gd" id="1_8u0i6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_126b3"]
+size = Vector3(80, 0.2, 2)
+
+[sub_resource type="Animation" id="Animation_04ecy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_anmt6"]
+resource_name = "fade_to_black"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jtdv8"]
+_data = {
+"RESET": SubResource("Animation_04ecy"),
+"fade_to_black": SubResource("Animation_anmt6")
+}
+
+[node name="DeathPit" type="Area3D"]
+script = ExtResource("1_8u0i6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.6608, -4.78114, 0)
+shape = SubResource("BoxShape3D_126b3")
+
+[node name="DeathFade" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="ColorRect" type="ColorRect" parent="DeathFade"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DeathFade"]
+libraries = {
+"": SubResource("AnimationLibrary_jtdv8")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="DeathFade/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

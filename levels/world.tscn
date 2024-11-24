@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://b7tpk1lt4xo34"]
+[gd_scene load_steps=23 format=3 uid="uid://b7tpk1lt4xo34"]
 
 [ext_resource type="PackedScene" uid="uid://ck1rkve1atrlh" path="res://scenes/spirit.tscn" id="1_1hhqs"]
 [ext_resource type="PackedScene" uid="uid://k72wmgih1jpx" path="res://scenes/merc.tscn" id="2_2aes2"]
 [ext_resource type="PackedScene" uid="uid://ibl0444sg4cs" path="res://scenes/gui/hud.tscn" id="2_p0i8m"]
 [ext_resource type="PackedScene" uid="uid://c0nunh5h4qu7g" path="res://scenes/apple.tscn" id="4_o1u6y"]
+[ext_resource type="PackedScene" uid="uid://bgjv3vausb3" path="res://scenes/death_pit.tscn" id="5_n1eax"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sgncv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -177,3 +178,5 @@ hp = 2
 
 [node name="Apple" parent="." instance=ExtResource("4_o1u6y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.40797, 4.70888, 0)
+
+[node name="DeathPit" parent="." instance=ExtResource("5_n1eax")]
