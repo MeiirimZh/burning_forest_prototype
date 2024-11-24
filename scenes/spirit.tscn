@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://ck1rkve1atrlh"]
+[gd_scene load_steps=29 format=4 uid="uid://ck1rkve1atrlh"]
 
 [ext_resource type="Script" path="res://scripts/spirit/spirit.gd" id="1_ldjbo"]
 [ext_resource type="Script" path="res://scripts/spirit/detect_spirit_damage.gd" id="2_0pivw"]
@@ -2531,6 +2531,21 @@ albedo_texture = ExtResource("3_tkgbc")
 material = SubResource("StandardMaterial3D_jdxwn")
 size = Vector2(0.2, 0.2)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cnlmb"]
+lifetime_randomness = 0.5
+direction = Vector3(0, 0, 0)
+spread = 120.0
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ost13"]
+albedo_color = Color(0.70165, 0, 0.132956, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_o5jvy"]
+material = SubResource("StandardMaterial3D_ost13")
+radius = 0.025
+height = 0.05
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_ferxt"]
 size = Vector3(1, 1.7, 1)
 
@@ -2673,12 +2688,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 6)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.65, 1.05, 0)
 emitting = false
 amount = 16
-lifetime = 0.5
 one_shot = true
 speed_scale = 0.7
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_4tiuj")
 draw_pass_1 = SubResource("QuadMesh_xaaeu")
+
+[node name="Blood" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27782, -0.0531601)
+emitting = false
+amount = 16
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_cnlmb")
+draw_pass_1 = SubResource("SphereMesh_o5jvy")
 
 [node name="SlideTimer" type="Timer" parent="."]
 

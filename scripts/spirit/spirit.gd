@@ -10,6 +10,7 @@ extends CharacterBody3D
 @onready var collision_shape = $CollisionShape3D
 @onready var detect_dmg_collision_shape = $DetectDamage/CollisionShape3D
 @onready var leaves_particles = $Leaves
+@onready var blood_particles = $Blood
 
 # Scenes
 @export var projectile_scene : PackedScene = preload("res://scenes/spirit_projectile.tscn")
@@ -214,6 +215,9 @@ func _on_detect_damage_spirit_damage_taken(dam: Variant) -> void:
 		# Temporary invulnerability
 		can_take_damage = false
 		damage_timer.start(damage_cooldown_duration)
+		
+		blood_particles.restart()
+		blood_particles.emitting = true
 		
 		if hp <= 0:
 			Global.player_damaged = false
