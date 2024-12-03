@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=4 uid="uid://2vi47lb5v1kv"]
+[gd_scene load_steps=7 format=4 uid="uid://2vi47lb5v1kv"]
+
+[ext_resource type="Script" path="res://scripts/dog/dog.gd" id="1_5enew"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5rgi1"]
 resource_name = "Fur"
@@ -107,9 +109,14 @@ bind/24/pose = Transform3D(0.998972, 0.0453283, 0, 0, 0, -1, -0.0453283, 0.99897
 [sub_resource type="BoxShape3D" id="BoxShape3D_k46uq"]
 size = Vector3(0.35, 1, 1.2)
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_hrej8"]
+height = 1.0
+radius = 8.0
+
 [node name="Dog" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 2
+script = ExtResource("1_5enew")
 
 [node name="Armature" type="Node3D" parent="."]
 
@@ -297,3 +304,11 @@ skin = SubResource("Skin_gx540")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.12)
 shape = SubResource("BoxShape3D_k46uq")
+
+[node name="DetectPlayer" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectPlayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_hrej8")
+
+[connection signal="body_entered" from="DetectPlayer" to="." method="_on_detect_player_body_entered"]

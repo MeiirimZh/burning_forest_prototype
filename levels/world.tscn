@@ -78,7 +78,7 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="Spirit" parent="." instance=ExtResource("1_1hhqs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5583, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.478, 1.53294, 0)
 
 [node name="HUD" parent="Spirit" instance=ExtResource("2_p0i8m")]
 
@@ -166,6 +166,16 @@ metadata/_edit_group_ = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/MeshInstance3D2/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_dt6ql")
 
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.7815, 1.15228, 0)
+mesh = SubResource("PlaneMesh_dr0vg")
+metadata/_edit_group_ = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground/MeshInstance3D3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/MeshInstance3D3/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_dt6ql")
+
 [node name="StaticBody3D2" type="StaticBody3D" parent="Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.426, 2.6, 0)
 collision_layer = 3
@@ -188,4 +198,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.40797, 4.70888, 0)
 [node name="DeathPit" parent="." instance=ExtResource("5_n1eax")]
 
 [node name="Dog" parent="." instance=ExtResource("6_yov8c")]
-transform = Transform3D(-6.11959e-08, 0, -1.4, 0, 1.4, 0, 1.4, 0, -6.11959e-08, 28.1302, 0, 0)
+transform = Transform3D(-6.11959e-08, 0, -1.4, 0, 1.4, 0, 1.4, 0, -6.11959e-08, 70.316, 1.48666, 0)
+collision_layer = 3
+collision_mask = 3
