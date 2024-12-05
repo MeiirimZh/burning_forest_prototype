@@ -2550,6 +2550,8 @@ height = 0.05
 size = Vector3(1, 1.7, 1)
 
 [node name="Spirit" type="CharacterBody3D"]
+collision_layer = 5
+collision_mask = 5
 script = ExtResource("1_ldjbo")
 
 [node name="Armature" type="Node3D" parent="."]

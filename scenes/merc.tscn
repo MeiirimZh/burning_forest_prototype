@@ -717,6 +717,8 @@ size = Vector3(1, 2, 2)
 viewport_path = NodePath("Sprite3D/SubViewport")
 
 [node name="Merc" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_ol2mo")
 
 [node name="Armature" type="Node3D" parent="."]

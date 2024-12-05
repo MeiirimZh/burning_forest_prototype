@@ -2,7 +2,8 @@ extends CharacterBody3D
 
 # Nodes
 @onready var animation_player = $AnimationPlayer
-@onready var mesh = $Armature
+@onready var armature = $Armature
+@onready var mesh = $Armature/Skeleton3D/mesh
 @onready var slide_timer = $SlideTimer
 @onready var slide_cooldown_timer = $SlideCooldownTimer
 @onready var attack_cooldown_timer = $AttackCooldownTimer
@@ -29,7 +30,7 @@ extends CharacterBody3D
 @export var state := "r_idle"
 @export var attack_cooldown_duration := 0.3
 @export var damage_cooldown_duration := 1.0
-@export var ghost_duration := 3.0
+@export var ghost_duration := 5.0
 @onready var ghost_cooldown_duration := 10.0
 @export var hp := 5
 var last_direction := 1
@@ -45,9 +46,15 @@ var can_attack := true
 var can_take_damage := true
 var can_ghost := false
 
-# Rotate the mesh and play an animation 
+# Shaders
+var transparency = load("res://shaders/transparency.gdshader")
+
+# ShaderMaterials
+var transparency_sm : ShaderMaterial = ShaderMaterial.new()
+
+# Rotate the armature play an animation 
 func rotate_and_play(angle, animation):
-	mesh.rotation.y = angle
+	armature.rotation.y = angle
 	animation_player.play(animation)
 
 # Set an idle animation based on a last direction
@@ -67,6 +74,7 @@ func spawn_projectile():
 	get_tree().current_scene.add_child(projectile_instance)
 	
 func _ready() -> void:
+	transparency_sm.shader = transparency
 	ghost_cooldown_timer.start(ghost_cooldown_duration)
 
 func _physics_process(_delta) -> void:
@@ -186,6 +194,10 @@ func _physics_process(_delta) -> void:
 		slide_cooldown_timer.start(slide_cooldown_duration)
 		
 	if Input.is_action_just_pressed("ghost") and can_ghost:
+		mesh.material_override = transparency_sm
+		collision_layer = (1 << 0)
+		collision_mask = (1 << 0)
+		
 		detect_dmg_collision_shape.disabled = true
 		can_ghost = false
 		ghost_timer.start(ghost_duration)
@@ -263,4 +275,8 @@ func _on_ghost_cooldown_timer_timeout() -> void:
 	can_ghost = true
 
 func _on_ghost_timer_timeout() -> void:
+	collision_layer = (1 << 0) | (1 << 2)
+	collision_mask = (1 << 0) | (1 << 2)
+	
+	mesh.material_override = null
 	detect_dmg_collision_shape.disabled = false
