@@ -7,6 +7,8 @@ extends CharacterBody3D
 @onready var slide_cooldown_timer = $SlideCooldownTimer
 @onready var attack_cooldown_timer = $AttackCooldownTimer
 @onready var damage_timer = $DamageTimer
+@onready var ghost_timer = $GhostTimer
+@onready var ghost_cooldown_timer = $GhostCooldownTimer
 @onready var collision_shape = $CollisionShape3D
 @onready var detect_dmg_collision_shape = $DetectDamage/CollisionShape3D
 @onready var leaves_particles = $Leaves
@@ -27,6 +29,8 @@ extends CharacterBody3D
 @export var state := "r_idle"
 @export var attack_cooldown_duration := 0.3
 @export var damage_cooldown_duration := 1.0
+@export var ghost_duration := 3.0
+@onready var ghost_cooldown_duration := 10.0
 @export var hp := 5
 var last_direction := 1
 
@@ -39,6 +43,7 @@ var can_jump := true
 var can_slide := true
 var can_attack := true
 var can_take_damage := true
+var can_ghost := false
 
 # Rotate the mesh and play an animation 
 func rotate_and_play(angle, animation):
@@ -60,6 +65,9 @@ func spawn_projectile():
 	projectile_instance.position = spawn_position
 	
 	get_tree().current_scene.add_child(projectile_instance)
+	
+func _ready() -> void:
+	ghost_cooldown_timer.start(ghost_cooldown_duration)
 
 func _physics_process(_delta) -> void:
 	var direction = 0
@@ -177,6 +185,11 @@ func _physics_process(_delta) -> void:
 		slide_timer.start(slide_duration)
 		slide_cooldown_timer.start(slide_cooldown_duration)
 		
+	if Input.is_action_just_pressed("ghost") and can_ghost:
+		detect_dmg_collision_shape.disabled = true
+		can_ghost = false
+		ghost_timer.start(ghost_duration)
+		
 	if is_sliding:
 		if is_jumping:
 			state = "side_jump"
@@ -245,3 +258,9 @@ func _on_detect_damage_spirit_damage_taken(dam: Variant) -> void:
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "death":
 		get_tree().change_scene_to_packed(game_over_scene)
+
+func _on_ghost_cooldown_timer_timeout() -> void:
+	can_ghost = true
+
+func _on_ghost_timer_timeout() -> void:
+	detect_dmg_collision_shape.disabled = false

@@ -78,6 +78,8 @@ shadow_enabled = true
 
 [node name="Spirit" parent="." instance=ExtResource("1_1hhqs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5583, 0, 0)
+collision_layer = 5
+collision_mask = 5
 
 [node name="HUD" parent="Spirit" instance=ExtResource("2_p0i8m")]
 

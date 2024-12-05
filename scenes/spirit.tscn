@@ -2711,6 +2711,10 @@ draw_pass_1 = SubResource("SphereMesh_o5jvy")
 
 [node name="DamageTimer" type="Timer" parent="."]
 
+[node name="GhostTimer" type="Timer" parent="."]
+
+[node name="GhostCooldownTimer" type="Timer" parent="."]
+
 [node name="DetectDamage" type="Area3D" parent="." groups=["spirit"]]
 collision_layer = 2
 collision_mask = 2
@@ -2725,4 +2729,6 @@ shape = SubResource("BoxShape3D_ferxt")
 [connection signal="timeout" from="SlideCooldownTimer" to="." method="_on_slide_cooldown_timer_timeout"]
 [connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_attack_cooldown_timer_timeout"]
 [connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]
+[connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]
+[connection signal="timeout" from="GhostCooldownTimer" to="." method="_on_ghost_cooldown_timer_timeout"]
 [connection signal="spirit_damage_taken" from="DetectDamage" to="." method="_on_detect_damage_spirit_damage_taken"]
