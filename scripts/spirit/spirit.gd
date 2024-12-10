@@ -36,6 +36,10 @@ extends CharacterBody3D
 @export var hp := 5
 var last_direction := 1
 
+# Signals
+signal ghost_activated(duration)
+signal ghost_recover(duration)
+
 # Flags
 var is_jumping := false
 var is_sliding := false
@@ -77,6 +81,7 @@ func spawn_projectile():
 func _ready() -> void:
 	transparency_sm.shader = transparency
 	ghost_cooldown_timer.start(ghost_cooldown_duration)
+	emit_signal("ghost_recover", ghost_cooldown_duration)
 
 func _physics_process(_delta) -> void:
 	var direction = 0
@@ -195,6 +200,7 @@ func _physics_process(_delta) -> void:
 		slide_cooldown_timer.start(slide_cooldown_duration)
 		
 	if Input.is_action_just_pressed("ghost") and can_ghost:
+		emit_signal("ghost_activated", ghost_duration)
 		mesh.material_override = transparency_sm
 		collision_layer = (1 << 0)
 		collision_mask = (1 << 0)
@@ -220,7 +226,7 @@ func _physics_process(_delta) -> void:
 		velocity.x = last_direction * speed * 2
 	else:
 		velocity.x = direction * speed
-	
+
 	move_and_slide()
 
 func _on_slide_timer_timeout() -> void:
@@ -280,6 +286,9 @@ func _on_ghost_timer_timeout() -> void:
 	collision_layer = (1 << 0) | (1 << 2)
 	collision_mask = (1 << 0) | (1 << 2)
 	
+	emit_signal("ghost_recover", ghost_cooldown_duration)
 	ghost_particles.emitting = false
 	mesh.material_override = null
 	detect_dmg_collision_shape.disabled = false
+	
+	ghost_cooldown_timer.start(ghost_cooldown_duration)
