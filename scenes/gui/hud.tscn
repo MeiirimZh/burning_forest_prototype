@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://ibl0444sg4cs"]
+[gd_scene load_steps=5 format=3 uid="uid://ibl0444sg4cs"]
 
 [ext_resource type="Texture2D" uid="uid://bbd3ar5unjttp" path="res://images/heart.png" id="1_7g3wk"]
 [ext_resource type="Script" path="res://scripts/gui/hud.gd" id="1_x8yv3"]
+[ext_resource type="Texture2D" uid="uid://dbpep8uo6xa0g" path="res://images/progressbar/progressbar_under.png" id="3_wgr5q"]
+[ext_resource type="Texture2D" uid="uid://6ylqy3ccxil6" path="res://images/progressbar/progressbar_progress.png" id="4_xl413"]
 
 [node name="HUD" type="CanvasLayer"]
 follow_viewport_enabled = true
@@ -47,3 +49,20 @@ expand_mode = 3
 layout_mode = 2
 texture = ExtResource("1_7g3wk")
 expand_mode = 3
+
+[node name="GhostProgressBar" type="TextureProgressBar" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -139.0
+offset_top = -68.0
+offset_right = 139.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+fill_mode = 6
+texture_under = ExtResource("3_wgr5q")
+texture_progress = ExtResource("4_xl413")
