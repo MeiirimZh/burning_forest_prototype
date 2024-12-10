@@ -7,3 +7,4 @@ var current_level : PackedScene = preload("res://levels/world.tscn")
 var score := 0
 var player_damaged := false
 var player_healed := false
+var player_mode := "normal"

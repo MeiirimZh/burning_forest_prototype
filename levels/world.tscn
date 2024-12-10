@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://bgjv3vausb3" path="res://scenes/death_pit.tscn" id="5_n1eax"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sgncv"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
 [sub_resource type="Sky" id="Sky_fjm4r"]

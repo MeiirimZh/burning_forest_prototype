@@ -200,6 +200,7 @@ func _physics_process(_delta) -> void:
 		slide_cooldown_timer.start(slide_cooldown_duration)
 		
 	if Input.is_action_just_pressed("ghost") and can_ghost:
+		Global.player_mode = "ghost"
 		emit_signal("ghost_activated", ghost_duration)
 		mesh.material_override = transparency_sm
 		collision_layer = (1 << 0)
@@ -286,6 +287,7 @@ func _on_ghost_timer_timeout() -> void:
 	collision_layer = (1 << 0) | (1 << 2)
 	collision_mask = (1 << 0) | (1 << 2)
 	
+	Global.player_mode = "normal"
 	emit_signal("ghost_recover", ghost_cooldown_duration)
 	ghost_particles.emitting = false
 	mesh.material_override = null
