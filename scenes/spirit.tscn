@@ -2726,6 +2726,7 @@ draw_pass_1 = SubResource("SphereMesh_o5jvy")
 [node name="GhostParticles" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.34901, -0.57343)
 material_override = SubResource("ShaderMaterial_01r22")
+emitting = false
 amount = 12
 process_material = SubResource("ParticleProcessMaterial_jpdmj")
 draw_pass_1 = SubResource("BoxMesh_wckqq")

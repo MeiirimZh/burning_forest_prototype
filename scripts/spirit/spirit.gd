@@ -14,6 +14,7 @@ extends CharacterBody3D
 @onready var detect_dmg_collision_shape = $DetectDamage/CollisionShape3D
 @onready var leaves_particles = $Leaves
 @onready var blood_particles = $Blood
+@onready var ghost_particles = $GhostParticles
 
 # Scenes
 @export var projectile_scene : PackedScene = preload("res://scenes/spirit_projectile.tscn")
@@ -198,6 +199,7 @@ func _physics_process(_delta) -> void:
 		collision_layer = (1 << 0)
 		collision_mask = (1 << 0)
 		
+		ghost_particles.emitting = true
 		detect_dmg_collision_shape.disabled = true
 		can_ghost = false
 		ghost_timer.start(ghost_duration)
@@ -278,5 +280,6 @@ func _on_ghost_timer_timeout() -> void:
 	collision_layer = (1 << 0) | (1 << 2)
 	collision_mask = (1 << 0) | (1 << 2)
 	
+	ghost_particles.emitting = false
 	mesh.material_override = null
 	detect_dmg_collision_shape.disabled = false
