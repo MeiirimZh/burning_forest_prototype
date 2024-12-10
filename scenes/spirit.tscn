@@ -1,7 +1,8 @@
-[gd_scene load_steps=29 format=4 uid="uid://ck1rkve1atrlh"]
+[gd_scene load_steps=33 format=4 uid="uid://ck1rkve1atrlh"]
 
 [ext_resource type="Script" path="res://scripts/spirit/spirit.gd" id="1_ldjbo"]
 [ext_resource type="Script" path="res://scripts/spirit/detect_spirit_damage.gd" id="2_0pivw"]
+[ext_resource type="Shader" path="res://shaders/transparency.gdshader" id="3_nevkq"]
 [ext_resource type="Texture2D" uid="uid://ygyj4tkqtm54" path="res://images/leaf.png" id="3_tkgbc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qvl7u"]
@@ -2546,6 +2547,23 @@ material = SubResource("StandardMaterial3D_ost13")
 radius = 0.025
 height = 0.05
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_01r22"]
+render_priority = 0
+shader = ExtResource("3_nevkq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jpdmj"]
+particle_flag_rotate_y = true
+angle_min = 1.07288e-05
+angle_max = 30.0
+direction = Vector3(0, 1, 0)
+spread = 60.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wckqq"]
+size = Vector3(0.07, 0.07, 0.07)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_ferxt"]
 size = Vector3(1, 1.7, 1)
 
@@ -2704,6 +2722,13 @@ one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_cnlmb")
 draw_pass_1 = SubResource("SphereMesh_o5jvy")
+
+[node name="GhostParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.34901, -0.57343)
+material_override = SubResource("ShaderMaterial_01r22")
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_jpdmj")
+draw_pass_1 = SubResource("BoxMesh_wckqq")
 
 [node name="SlideTimer" type="Timer" parent="."]
 
