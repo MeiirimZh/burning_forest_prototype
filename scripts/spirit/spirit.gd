@@ -31,7 +31,7 @@ extends CharacterBody3D
 @export var state := "r_idle"
 @export var attack_cooldown_duration := 0.3
 @export var damage_cooldown_duration := 1.0
-@export var ghost_duration := 15.0
+@export var ghost_duration := 10.0
 @onready var ghost_cooldown_duration := 45.0
 @export var hp := 5
 var last_direction := 1

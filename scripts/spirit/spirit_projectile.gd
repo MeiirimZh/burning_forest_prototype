@@ -11,19 +11,7 @@ extends Node3D
 @export var disappearance_time := 2.0
 var direction := 1
 
-# Shaders
-var transparency = load("res://shaders/transparency.gdshader")
-
-# ShaderMaterials
-var transparency_sm : ShaderMaterial = ShaderMaterial.new()
-
 func _ready() -> void:
-	transparency_sm.shader = transparency
-	
-	if Global.player_mode == "ghost":
-		ray.collision_mask = (1 << 0)
-		$MeshInstance3D.material_override = transparency_sm
-	
 	dtimer.start(disappearance_time)
 	if direction == 1:
 		rotation.y = 0
