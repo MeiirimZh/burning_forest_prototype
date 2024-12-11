@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b7tpk1lt4xo34"]
+[gd_scene load_steps=23 format=3 uid="uid://b7tpk1lt4xo34"]
 
 [ext_resource type="PackedScene" uid="uid://ck1rkve1atrlh" path="res://scenes/spirit.tscn" id="1_1hhqs"]
 [ext_resource type="PackedScene" uid="uid://k72wmgih1jpx" path="res://scenes/merc.tscn" id="2_2aes2"]
@@ -36,6 +36,10 @@ font_size = 30
 
 [sub_resource type="TextMesh" id="TextMesh_54evl"]
 text = "[J] to attack"
+font_size = 30
+
+[sub_resource type="TextMesh" id="TextMesh_4fp3q"]
+text = "[L] to turn into a ghost"
 font_size = 30
 
 [sub_resource type="BoxMesh" id="BoxMesh_mklw4"]
@@ -105,10 +109,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.248, 3.48881, 0)
 mesh = SubResource("TextMesh_1wes7")
 
 [node name="TutorialText5" type="Node3D" parent="Tutorial"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.405, 3.47045, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.9455, 3.47045, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Tutorial/TutorialText5"]
 mesh = SubResource("TextMesh_54evl")
+
+[node name="TutorialText6" type="Node3D" parent="Tutorial"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.2976, 3.5043, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tutorial/TutorialText6"]
+mesh = SubResource("TextMesh_4fp3q")
 
 [node name="Merc" parent="." instance=ExtResource("2_2aes2")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 32.9069, -0.0104131, 0.0500009)
