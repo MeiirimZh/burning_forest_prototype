@@ -7,7 +7,7 @@ extends CharacterBody3D
 
 # Scenes
 @onready var player = get_node("/root/World/Spirit")
-@export var projectile_scene : PackedScene = preload("res://scenes/enemy_projectile.tscn")
+@export var projectile_scene : PackedScene = preload("res://scenes/projectiles/enemy_projectile.tscn")
 
 # Variables
 @export var attack_cooldown_duration := 2.0

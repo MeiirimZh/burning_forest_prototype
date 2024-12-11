@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ibl0444sg4cs"]
 
-[ext_resource type="Texture2D" uid="uid://bbd3ar5unjttp" path="res://images/heart.png" id="1_7g3wk"]
+[ext_resource type="Texture2D" uid="uid://bbd3ar5unjttp" path="res://images/icons/heart.png" id="1_7g3wk"]
 [ext_resource type="Script" path="res://scripts/gui/hud.gd" id="1_x8yv3"]
 [ext_resource type="Texture2D" uid="uid://dbpep8uo6xa0g" path="res://images/progressbar/progressbar_under.png" id="3_wgr5q"]
 [ext_resource type="Texture2D" uid="uid://6ylqy3ccxil6" path="res://images/progressbar/progressbar_progress.png" id="4_xl413"]

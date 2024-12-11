@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/spirit/spirit.gd" id="1_ldjbo"]
 [ext_resource type="Script" path="res://scripts/spirit/detect_spirit_damage.gd" id="2_0pivw"]
 [ext_resource type="Shader" path="res://shaders/transparency.gdshader" id="3_nevkq"]
-[ext_resource type="Texture2D" uid="uid://ygyj4tkqtm54" path="res://images/leaf.png" id="3_tkgbc"]
+[ext_resource type="Texture2D" uid="uid://ygyj4tkqtm54" path="res://images/particles/leaf.png" id="3_tkgbc"]
 [ext_resource type="PackedScene" uid="uid://ibl0444sg4cs" path="res://scenes/gui/hud.tscn" id="5_osyg8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qvl7u"]

@@ -17,7 +17,7 @@ extends CharacterBody3D
 @onready var ghost_particles = $GhostParticles
 
 # Scenes
-@export var projectile_scene : PackedScene = preload("res://scenes/spirit_projectile.tscn")
+@export var projectile_scene : PackedScene = preload("res://scenes/projectiles/spirit_projectile.tscn")
 @export var game_over_scene : PackedScene = preload("res://levels/gameover.tscn")
 
 # Physics variables
