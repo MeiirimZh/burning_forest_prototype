@@ -31,8 +31,8 @@ extends CharacterBody3D
 @export var state := "r_idle"
 @export var attack_cooldown_duration := 0.3
 @export var damage_cooldown_duration := 1.0
-@export var ghost_duration := 5.0
-@onready var ghost_cooldown_duration := 10.0
+@export var ghost_duration := 15.0
+@onready var ghost_cooldown_duration := 45.0
 @export var hp := 5
 var last_direction := 1
 
@@ -225,6 +225,8 @@ func _physics_process(_delta) -> void:
 			detect_dmg_collision_shape.shape.size = Vector3(1, 1, 1)
 			
 		velocity.x = last_direction * speed * 2
+	elif Global.player_mode == "ghost":
+		velocity.x = direction * speed * 1.5
 	else:
 		velocity.x = direction * speed
 
