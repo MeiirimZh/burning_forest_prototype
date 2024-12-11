@@ -4,14 +4,20 @@ extends CharacterBody3D
 @onready var animation_player = $AnimationPlayer
 @onready var armature = $Armature
 @onready var mesh = $Armature/Skeleton3D/mesh
+
+# Nodes - Timers
 @onready var slide_timer = $SlideTimer
 @onready var slide_cooldown_timer = $SlideCooldownTimer
 @onready var attack_cooldown_timer = $AttackCooldownTimer
 @onready var damage_timer = $DamageTimer
 @onready var ghost_timer = $GhostTimer
 @onready var ghost_cooldown_timer = $GhostCooldownTimer
+
+# Nodes - CollisionShapes
 @onready var collision_shape = $CollisionShape3D
 @onready var detect_dmg_collision_shape = $DetectDamage/CollisionShape3D
+
+# Nodes - Particles
 @onready var leaves_particles = $Leaves
 @onready var blood_particles = $Blood
 @onready var ghost_particles = $GhostParticles
@@ -24,17 +30,19 @@ extends CharacterBody3D
 @export var speed := 7.0
 @export var jump_force := 12.0
 @export var gravity := 30.0
-@export var slide_duration := 0.5
-@export var slide_cooldown_duration := 2.0
 
 # Variables
 @export var state := "r_idle"
+@export var hp := 5
+var last_direction := 1
+
+# Variables - Cooldowns
+@export var slide_duration := 0.5
+@export var slide_cooldown_duration := 2.0
 @export var attack_cooldown_duration := 0.3
 @export var damage_cooldown_duration := 1.0
 @export var ghost_duration := 10.0
 @onready var ghost_cooldown_duration := 45.0
-@export var hp := 5
-var last_direction := 1
 
 # Signals
 signal ghost_activated(duration)
