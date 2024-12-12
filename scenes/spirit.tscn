@@ -2737,6 +2737,7 @@ draw_pass_1 = SubResource("BoxMesh_wckqq")
 [node name="SlideCooldownTimer" type="Timer" parent="."]
 
 [node name="AttackCooldownTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="DamageTimer" type="Timer" parent="."]
 

@@ -55,7 +55,6 @@ var is_attacking := false
 var can_run := true
 var can_jump := true
 var can_slide := true
-var can_attack := true
 var can_take_damage := true
 var can_ghost := false
 
@@ -93,12 +92,11 @@ func _ready() -> void:
 
 func _physics_process(_delta) -> void:
 	var direction = 0
-	
+
 	# Attack
-	if Input.is_action_just_pressed("attack") and not is_sliding and can_attack:
+	if Input.is_action_just_pressed("attack") and not is_sliding and attack_cooldown_timer.time_left == 0 and hp > 0:
 		spawn_projectile()
 		is_attacking = true
-		can_attack = false
 
 		leaves_particles.restart()
 		leaves_particles.emitting = true
@@ -231,7 +229,8 @@ func _physics_process(_delta) -> void:
 		if is_instance_valid(detect_dmg_collision_shape):
 			detect_dmg_collision_shape.position = Vector3(0, 0.5, 0)
 			detect_dmg_collision_shape.shape.size = Vector3(1, 1, 1)
-			
+	
+	if is_sliding:
 		velocity.x = last_direction * speed * 2
 	elif Global.player_mode == "ghost":
 		velocity.x = direction * speed * 1.5
@@ -255,7 +254,6 @@ func _on_slide_cooldown_timer_timeout() -> void:
 
 func _on_attack_cooldown_timer_timeout() -> void:
 	is_attacking = false
-	can_attack = true
 
 func _on_damage_timer_timeout() -> void:
 	if hp > 0:
@@ -276,7 +274,6 @@ func _on_detect_damage_spirit_damage_taken(dam: Variant) -> void:
 		
 		if hp <= 0:
 			can_take_damage = false
-			can_attack = false
 			can_slide = false
 			can_run = false
 			can_jump = false
