@@ -112,15 +112,15 @@ func _physics_process(_delta) -> void:
 	# Running
 	if Input.is_action_pressed("left") and not is_sliding and hp > 0:
 		direction = -1
-		leaves_particles.position = Vector3(-0.65, 1.05, 0)
 		last_direction = -1
+		leaves_particles.position = Vector3(-0.65, 1.05, 0)
 		if is_on_floor():
 			state = "run"
 		
 	elif Input.is_action_pressed("right") and not is_sliding and hp > 0:
 		direction = 1
-		leaves_particles.position = Vector3(0.65, 1.05, 0)
 		last_direction = 1
+		leaves_particles.position = Vector3(0.65, 1.05, 0)
 		if is_on_floor():
 			state = "run"
 	

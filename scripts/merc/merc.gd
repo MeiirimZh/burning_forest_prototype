@@ -12,9 +12,11 @@ extends CharacterBody3D
 # Variables
 @export var attack_cooldown_duration := 2.0
 @export var hp := 1
+var direction := -1
+
+# Flags
 var player_detected := false
 var can_attack := true
-var direction := -1
 var merc_damaged := false
 
 # Functions
@@ -27,18 +29,20 @@ func spawn_projectile():
 		projectile_instance.type = 'up'
 	
 	# Align the spawn position based on direction and attack type
-	if direction == 1 and projectile_instance.type == "straight":
-		spawn_position = self.global_position + Vector3(direction, 1.2, 0)
-		spawn_rotation = Vector3(0, 0, 0)
-	elif direction == -1 and projectile_instance.type == "straight":
-		spawn_position = self.global_position + Vector3(direction-0.4, 1.2, 0)
-		spawn_rotation = Vector3(0, -160, 0)
-	elif direction == 1 and projectile_instance.type == "up":
-		spawn_position = self.global_position + Vector3(direction, 1.2, 0)
-		spawn_rotation = Vector3(0, 0, 35)
+	if direction == 1:
+		if projectile_instance.type == "straight":
+			spawn_position = self.global_position + Vector3(direction, 1.2, 0)
+			spawn_rotation = Vector3(0, 0, 0)
+		else:
+			spawn_position = self.global_position + Vector3(direction, 1.2, 0)
+			spawn_rotation = Vector3(0, 0, 35)
 	else:
-		spawn_position = self.global_position + Vector3(direction, 1.4, 0)
-		spawn_rotation = Vector3(0, -160, 35)
+		if projectile_instance.type == "straight":
+			spawn_position = self.global_position + Vector3(direction-0.4, 1.2, 0)
+			spawn_rotation = Vector3(0, -160, 0)
+		else:
+			spawn_position = self.global_position + Vector3(direction, 1.4, 0)
+			spawn_rotation = Vector3(0, -160, 35)
 	
 	projectile_instance.direction = direction
 	projectile_instance.position = spawn_position
