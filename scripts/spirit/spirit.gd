@@ -52,7 +52,6 @@ signal ghost_recover(duration)
 var is_jumping := false
 var is_sliding := false
 var is_attacking := false
-var can_run := true
 var can_jump := true
 var can_slide := true
 var can_take_damage := true
@@ -156,13 +155,13 @@ func _physics_process(_delta) -> void:
 			rotate_and_play(85, "death")
 	
 	# Running
-	if Input.is_action_pressed("left") and not is_sliding and can_run:
+	if Input.is_action_pressed("left") and not is_sliding and hp > 0:
 		direction = -1
 		state = "l_run"
 		leaves_particles.position = Vector3(-0.65, 1.05, 0)
 		last_direction = -1
 		
-	elif Input.is_action_pressed("right") and not is_sliding and can_run:
+	elif Input.is_action_pressed("right") and not is_sliding and hp > 0:
 		direction = 1
 		state = "r_run"
 		leaves_particles.position = Vector3(0.65, 1.05, 0)
@@ -275,7 +274,6 @@ func _on_detect_damage_spirit_damage_taken(dam: Variant) -> void:
 		if hp <= 0:
 			can_take_damage = false
 			can_slide = false
-			can_run = false
 			can_jump = false
 			
 			state = "death"
