@@ -35,6 +35,10 @@ extends CharacterBody3D
 @export var state := "idle"
 @export var hp := 5
 var last_direction := 1
+var state_animation_angles = {"idle": [0, 85], "run": [-92.5, 92.5], "jump_front": [0, 85],
+"fall_front": [0, 85], "jump_side": [-92.5, 92.5], "fall_side": [-92.5, 92.5],
+"slide": [0, 85], "attack_idle": [0, 85], "attack_run": [-92.5, 92.5],
+"attack_jump": [0, 85], "death": [0, 85]}
 
 # Variables - Cooldowns
 @export var slide_duration := 0.5
@@ -60,15 +64,13 @@ var transparency = load("res://shaders/transparency.gdshader")
 var transparency_sm : ShaderMaterial = ShaderMaterial.new()
 
 # Rotate the armature play an animation 
-func rotate_and_play(angle, animation):
-	armature.rotation.y = angle
-	animation_player.play(animation)
-	
-func directed_rotate_and_play(direction, angle_1, angle_2, animation):
+func play_animation_based_on_state(direction, angle_1, angle_2, animation):
 	if direction == 1:
-		rotate_and_play(angle_1, animation)
+		armature.rotation.y = angle_1
+		animation_player.play(animation)
 	else:
-		rotate_and_play(angle_2, animation)
+		armature.rotation.y = angle_2
+		animation_player.play(animation)
 
 func spawn_projectile():
 	var projectile_instance = projectile_scene.instantiate()
@@ -78,6 +80,12 @@ func spawn_projectile():
 	projectile_instance.position = spawn_position
 	
 	get_tree().current_scene.add_child(projectile_instance)
+	
+func die():
+	state = "death"
+	
+	# Make enemy projectiles go through the player
+	detect_dmg_collision_shape.queue_free()
 	
 func _ready() -> void:
 	Global.player_mode = "normal"
@@ -99,28 +107,7 @@ func _physics_process(_delta) -> void:
 		attack_cooldown_timer.start(attack_cooldown_duration)
 	
 	# Check the state and play the corresponding animation
-	if state == "idle":
-		directed_rotate_and_play(last_direction, 0, 85, "idle")
-	elif state == "run":
-		directed_rotate_and_play(last_direction, -92.5, 92.5, "run")
-	elif state == "front_jump":
-		directed_rotate_and_play(last_direction, 0, 85, "jump_front")
-	elif state == "front_fall":
-		directed_rotate_and_play(last_direction, 0, 85, "fall_front")
-	elif state == "side_jump":
-		directed_rotate_and_play(last_direction, -92.5, 92.5, "jump_side")
-	elif state == "side_fall":
-		directed_rotate_and_play(last_direction, -92.5, 92.5, "fall_side")
-	elif state == "slide":
-		directed_rotate_and_play(last_direction, 0, 85, "slide")
-	elif state == "idle_attack":
-		directed_rotate_and_play(last_direction, 0, 85, "attack_idle")
-	elif state == "run_attack":
-		directed_rotate_and_play(last_direction, -92.5, 92.5, "attack_run")
-	elif state == "jump_attack":
-		directed_rotate_and_play(last_direction, 0, 85, "attack_jump")
-	elif state == "death":
-		directed_rotate_and_play(last_direction, 0, 85, "death")
+	play_animation_based_on_state(last_direction, state_animation_angles[state][0], state_animation_angles[state][1], state)
 	
 	# Running
 	if Input.is_action_pressed("left") and not is_sliding and hp > 0:
@@ -143,18 +130,18 @@ func _physics_process(_delta) -> void:
 		
 	if is_attacking:
 		if velocity.x == 0 and not is_jumping:
-			state = "idle_attack"
+			state = "attack_idle"
 		elif is_jumping:
-			state = "jump_attack"
+			state = "attack_jump"
 		else:
-			state = "run_attack"
+			state = "attack_run"
 	
 	if not is_on_floor():
 		velocity.y -= gravity * _delta
 		if velocity.y < 0 and velocity.x == 0 and not is_attacking:
-			state = "front_fall"
+			state = "fall_front"
 		if velocity.y < 0 and velocity.x != 0 and not is_attacking:
-			state = "side_fall"
+			state = "fall_side"
 	else:
 		if is_jumping:
 			is_jumping = false
@@ -164,9 +151,9 @@ func _physics_process(_delta) -> void:
 		velocity.y = jump_force
 		is_jumping = true
 		if velocity.x == 0 and not is_attacking:
-			state = "front_jump"
+			state = "jump_front"
 		elif velocity.x != 0 and not is_attacking:
-			state = "side_jump"
+			state = "jump_side"
 			
 	if Input.is_action_just_pressed("slide") and is_on_floor() and slide_cooldown_timer.time_left == 0 \
 	and not is_attacking and hp > 0:
@@ -187,7 +174,7 @@ func _physics_process(_delta) -> void:
 		
 	if is_sliding:
 		if is_jumping:
-			state = "side_jump"
+			state = "jump_side"
 		else:
 			state = "slide"
 		# Change collision shape to go through smaller spaces
@@ -231,12 +218,11 @@ func _on_detect_damage_spirit_damage_taken(dam: Variant) -> void:
 		
 			blood_particles.restart()
 			blood_particles.emitting = true
-		
-	else:
-		state = "death"
 			
-		# Make enemy projectiles go through the player
-		detect_dmg_collision_shape.queue_free()
+			if hp <= 0:
+				die()
+	else:
+		die()
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "death":
