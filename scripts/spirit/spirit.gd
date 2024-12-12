@@ -101,10 +101,8 @@ func _physics_process(_delta) -> void:
 	# Check the state and play the corresponding animation
 	if state == "idle":
 		directed_rotate_and_play(last_direction, 0, 85, "idle")
-	elif state == "r_run" and not is_jumping:
-		rotate_and_play(-92.5, "run")
-	elif state == "l_run" and not is_jumping:
-		rotate_and_play(92.5, "run")
+	elif state == "run":
+		directed_rotate_and_play(last_direction, -92.5, 92.5, "run")
 	elif state == "front_jump":
 		directed_rotate_and_play(last_direction, 0, 85, "jump_front")
 	elif state == "front_fall":
@@ -127,15 +125,17 @@ func _physics_process(_delta) -> void:
 	# Running
 	if Input.is_action_pressed("left") and not is_sliding and hp > 0:
 		direction = -1
-		state = "l_run"
 		leaves_particles.position = Vector3(-0.65, 1.05, 0)
 		last_direction = -1
+		if is_on_floor():
+			state = "run"
 		
 	elif Input.is_action_pressed("right") and not is_sliding and hp > 0:
 		direction = 1
-		state = "r_run"
 		leaves_particles.position = Vector3(0.65, 1.05, 0)
 		last_direction = 1
+		if is_on_floor():
+			state = "run"
 	
 	# Reset the state to idle after a movement
 	if velocity.x == 0 and is_on_floor() and not is_attacking and hp > 0:
