@@ -52,7 +52,6 @@ signal ghost_recover(duration)
 var is_jumping := false
 var is_sliding := false
 var is_attacking := false
-var can_slide := true
 var can_take_damage := true
 var can_ghost := false
 
@@ -84,6 +83,7 @@ func spawn_projectile():
 	get_tree().current_scene.add_child(projectile_instance)
 	
 func _ready() -> void:
+	Global.player_mode = "normal"
 	transparency_sm.shader = transparency
 	ghost_cooldown_timer.start(ghost_cooldown_duration)
 	emit_signal("ghost_recover", ghost_cooldown_duration)
@@ -197,9 +197,9 @@ func _physics_process(_delta) -> void:
 		elif velocity.x != 0 and not is_attacking:
 			state = "side_jump"
 			
-	if Input.is_action_just_pressed("slide") and is_on_floor() and can_slide and not is_attacking:
+	if Input.is_action_just_pressed("slide") and is_on_floor() and slide_cooldown_timer.time_left == 0 \
+	and not is_attacking and hp > 0:
 		is_sliding = true
-		can_slide = false
 		slide_timer.start(slide_duration)
 		slide_cooldown_timer.start(slide_cooldown_duration)
 		
@@ -246,10 +246,6 @@ func _on_slide_timer_timeout() -> void:
 		detect_dmg_collision_shape.position = Vector3(0, 0.85, 0)
 		detect_dmg_collision_shape.shape.size = Vector3(1, 1.7, 1)
 
-func _on_slide_cooldown_timer_timeout() -> void:
-	if hp > 0:
-		can_slide = true
-
 func _on_attack_cooldown_timer_timeout() -> void:
 	is_attacking = false
 
@@ -272,7 +268,6 @@ func _on_detect_damage_spirit_damage_taken(dam: Variant) -> void:
 		
 		if hp <= 0:
 			can_take_damage = false
-			can_slide = false
 			
 			state = "death"
 			
