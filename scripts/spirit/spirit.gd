@@ -32,7 +32,7 @@ extends CharacterBody3D
 @export var gravity := 30.0
 
 # Variables
-@export var state := "r_idle"
+@export var state := "idle"
 @export var hp := 5
 var last_direction := 1
 
@@ -63,13 +63,12 @@ var transparency_sm : ShaderMaterial = ShaderMaterial.new()
 func rotate_and_play(angle, animation):
 	armature.rotation.y = angle
 	animation_player.play(animation)
-
-# Set an idle animation based on a last direction
-func set_idle():
-	if last_direction == 1:
-		state = "r_idle"
+	
+func directed_rotate_and_play(direction, angle_1, angle_2, animation):
+	if direction == 1:
+		rotate_and_play(angle_1, animation)
 	else:
-		state = "l_idle"
+		rotate_and_play(angle_2, animation)
 
 func spawn_projectile():
 	var projectile_instance = projectile_scene.instantiate()
@@ -100,56 +99,30 @@ func _physics_process(_delta) -> void:
 		attack_cooldown_timer.start(attack_cooldown_duration)
 	
 	# Check the state and play the corresponding animation
-	if state == "r_idle":
-		rotate_and_play(0, "idle")
-	elif state == "l_idle":
-		rotate_and_play(85, "idle")
+	if state == "idle":
+		directed_rotate_and_play(last_direction, 0, 85, "idle")
 	elif state == "r_run" and not is_jumping:
 		rotate_and_play(-92.5, "run")
 	elif state == "l_run" and not is_jumping:
 		rotate_and_play(92.5, "run")
 	elif state == "front_jump":
-		animation_player.play("jump_front")
+		directed_rotate_and_play(last_direction, 0, 85, "jump_front")
 	elif state == "front_fall":
-		if last_direction == 1:
-			rotate_and_play(0, "fall_front")
-		else:
-			rotate_and_play(85, "fall_front")
+		directed_rotate_and_play(last_direction, 0, 85, "fall_front")
 	elif state == "side_jump":
-		if last_direction == 1:
-			rotate_and_play(-92.5, "jump_side")
-		else:
-			rotate_and_play(92.5, "jump_side")
+		directed_rotate_and_play(last_direction, -92.5, 92.5, "jump_side")
 	elif state == "side_fall":
-		if last_direction == 1:
-			rotate_and_play(-92.5, "fall_side")
-		else:
-			rotate_and_play(92.5, "fall_side")
+		directed_rotate_and_play(last_direction, -92.5, 92.5, "fall_side")
 	elif state == "slide":
-		if last_direction == 1:
-			rotate_and_play(0, "slide")
-		else:
-			rotate_and_play(85, "slide")
+		directed_rotate_and_play(last_direction, 0, 85, "slide")
 	elif state == "idle_attack":
-		if last_direction == 1:
-			rotate_and_play(0, "attack_idle")
-		else:
-			rotate_and_play(85, "attack_idle")
+		directed_rotate_and_play(last_direction, 0, 85, "attack_idle")
 	elif state == "run_attack":
-		if last_direction == 1:
-			rotate_and_play(-92.5, "attack_run")
-		else:
-			rotate_and_play(92.5, "attack_run")
+		directed_rotate_and_play(last_direction, -92.5, 92.5, "attack_run")
 	elif state == "jump_attack":
-		if last_direction == 1:
-			rotate_and_play(0, "attack_jump")
-		else:
-			rotate_and_play(85, "attack_jump")
+		directed_rotate_and_play(last_direction, 0, 85, "attack_jump")
 	elif state == "death":
-		if last_direction == 1:
-			rotate_and_play(0, "death")
-		else:
-			rotate_and_play(85, "death")
+		directed_rotate_and_play(last_direction, 0, 85, "death")
 	
 	# Running
 	if Input.is_action_pressed("left") and not is_sliding and hp > 0:
@@ -166,7 +139,7 @@ func _physics_process(_delta) -> void:
 	
 	# Reset the state to idle after a movement
 	if velocity.x == 0 and is_on_floor() and not is_attacking and hp > 0:
-		set_idle()
+		state = "idle"
 		
 	if is_attacking:
 		if velocity.x == 0 and not is_jumping:
@@ -185,7 +158,7 @@ func _physics_process(_delta) -> void:
 	else:
 		if is_jumping:
 			is_jumping = false
-			set_idle()
+			state = "idle"
 		
 	if Input.is_action_just_pressed("jump") and is_on_floor() and hp > 0:
 		velocity.y = jump_force
