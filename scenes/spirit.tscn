@@ -2741,6 +2741,7 @@ one_shot = true
 one_shot = true
 
 [node name="DamageTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="GhostTimer" type="Timer" parent="."]
 one_shot = true
@@ -2764,7 +2765,6 @@ shape = SubResource("BoxShape3D_ferxt")
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="SlideTimer" to="." method="_on_slide_timer_timeout"]
 [connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_attack_cooldown_timer_timeout"]
-[connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]
 [connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]
 [connection signal="timeout" from="GhostCooldownTimer" to="." method="_on_ghost_cooldown_timer_timeout"]
 [connection signal="spirit_damage_taken" from="DetectDamage" to="." method="_on_detect_damage_spirit_damage_taken"]

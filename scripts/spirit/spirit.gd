@@ -52,7 +52,6 @@ signal ghost_recover(duration)
 var is_jumping := false
 var is_sliding := false
 var is_attacking := false
-var can_take_damage := true
 var can_ghost := false
 
 # Shaders
@@ -249,30 +248,24 @@ func _on_slide_timer_timeout() -> void:
 func _on_attack_cooldown_timer_timeout() -> void:
 	is_attacking = false
 
-func _on_damage_timer_timeout() -> void:
-	if hp > 0:
-		can_take_damage = true
-
 # Take damage
 func _on_detect_damage_spirit_damage_taken(dam: Variant) -> void:
-	if can_take_damage:
-		hp -= dam
-		Global.player_damaged = true
+	if hp > 0:
+		if damage_timer.time_left == 0:
+			hp -= dam
+			Global.player_damaged = true
 		
-		# Temporary invulnerability
-		can_take_damage = false
-		damage_timer.start(damage_cooldown_duration)
+			# Temporary invulnerability
+			damage_timer.start(damage_cooldown_duration)
 		
-		blood_particles.restart()
-		blood_particles.emitting = true
+			blood_particles.restart()
+			blood_particles.emitting = true
 		
-		if hp <= 0:
-			can_take_damage = false
+	else:
+		state = "death"
 			
-			state = "death"
-			
-			# Make enemy projectiles go through the player
-			detect_dmg_collision_shape.queue_free()
+		# Make enemy projectiles go through the player
+		detect_dmg_collision_shape.queue_free()
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "death":
