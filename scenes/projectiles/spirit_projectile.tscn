@@ -21,3 +21,5 @@ mesh = SubResource("BoxMesh_jyss8")
 transform = Transform3D(-2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, 0, 0, 0.5, -0.251624, 0, 0)
 collision_mask = 2
 collide_with_areas = true
+
+[connection signal="timeout" from="DisappearanceTimer" to="." method="_on_disappearance_timer_timeout"]
