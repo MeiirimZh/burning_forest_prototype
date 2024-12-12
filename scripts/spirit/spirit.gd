@@ -6,21 +6,21 @@ extends CharacterBody3D
 @onready var mesh = $Armature/Skeleton3D/mesh
 
 # Nodes - Timers
-@onready var slide_timer = $SlideTimer
-@onready var slide_cooldown_timer = $SlideCooldownTimer
-@onready var attack_cooldown_timer = $AttackCooldownTimer
-@onready var damage_timer = $DamageTimer
-@onready var ghost_timer = $GhostTimer
-@onready var ghost_cooldown_timer = $GhostCooldownTimer
+@onready var slide_timer = $Timers/SlideTimer
+@onready var slide_cooldown_timer = $Timers/SlideCooldownTimer
+@onready var attack_cooldown_timer = $Timers/AttackCooldownTimer
+@onready var damage_timer = $Timers/DamageTimer
+@onready var ghost_timer = $Timers/GhostTimer
+@onready var ghost_cooldown_timer = $Timers/GhostCooldownTimer
 
 # Nodes - CollisionShapes
 @onready var collision_shape = $CollisionShape3D
 @onready var detect_dmg_collision_shape = $DetectDamage/CollisionShape3D
 
 # Nodes - Particles
-@onready var leaves_particles = $Leaves
-@onready var blood_particles = $Blood
-@onready var ghost_particles = $GhostParticles
+@onready var leaves_particles = $Particles/Leaves
+@onready var blood_particles = $Particles/Blood
+@onready var ghost_particles = $Particles/GhostParticles
 
 # Scenes
 @export var projectile_scene : PackedScene = preload("res://scenes/projectiles/spirit_projectile.tscn")
