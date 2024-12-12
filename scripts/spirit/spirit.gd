@@ -42,7 +42,7 @@ var last_direction := 1
 @export var attack_cooldown_duration := 0.3
 @export var damage_cooldown_duration := 1.0
 @export var ghost_duration := 10.0
-@onready var ghost_cooldown_duration := 45.0
+@export var ghost_cooldown_duration := 45.0
 
 # Signals
 signal ghost_activated(duration)
@@ -52,7 +52,6 @@ signal ghost_recover(duration)
 var is_jumping := false
 var is_sliding := false
 var is_attacking := false
-var can_ghost := false
 
 # Shaders
 var transparency = load("res://shaders/transparency.gdshader")
@@ -202,7 +201,7 @@ func _physics_process(_delta) -> void:
 		slide_timer.start(slide_duration)
 		slide_cooldown_timer.start(slide_cooldown_duration)
 		
-	if Input.is_action_just_pressed("ghost") and can_ghost:
+	if Input.is_action_just_pressed("ghost") and ghost_cooldown_timer.time_left == 0:
 		Global.player_mode = "ghost"
 		emit_signal("ghost_activated", ghost_duration)
 		mesh.material_override = transparency_sm
@@ -211,7 +210,6 @@ func _physics_process(_delta) -> void:
 		
 		ghost_particles.emitting = true
 		detect_dmg_collision_shape.disabled = true
-		can_ghost = false
 		ghost_timer.start(ghost_duration)
 		
 	if is_sliding:
@@ -270,9 +268,6 @@ func _on_detect_damage_spirit_damage_taken(dam: Variant) -> void:
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "death":
 		get_tree().change_scene_to_packed(game_over_scene)
-
-func _on_ghost_cooldown_timer_timeout() -> void:
-	can_ghost = true
 
 func _on_ghost_timer_timeout() -> void:
 	collision_layer = (1 << 0) | (1 << 2)

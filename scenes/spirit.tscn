@@ -2766,5 +2766,4 @@ shape = SubResource("BoxShape3D_ferxt")
 [connection signal="timeout" from="SlideTimer" to="." method="_on_slide_timer_timeout"]
 [connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_attack_cooldown_timer_timeout"]
 [connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]
-[connection signal="timeout" from="GhostCooldownTimer" to="." method="_on_ghost_cooldown_timer_timeout"]
 [connection signal="spirit_damage_taken" from="DetectDamage" to="." method="_on_detect_damage_spirit_damage_taken"]
