@@ -52,7 +52,6 @@ signal ghost_recover(duration)
 var is_jumping := false
 var is_sliding := false
 var is_attacking := false
-var can_jump := true
 var can_slide := true
 var can_take_damage := true
 var can_ghost := false
@@ -190,7 +189,7 @@ func _physics_process(_delta) -> void:
 			is_jumping = false
 			set_idle()
 		
-	if Input.is_action_just_pressed("jump") and is_on_floor() and can_jump:
+	if Input.is_action_just_pressed("jump") and is_on_floor() and hp > 0:
 		velocity.y = jump_force
 		is_jumping = true
 		if velocity.x == 0 and not is_attacking:
@@ -274,7 +273,6 @@ func _on_detect_damage_spirit_damage_taken(dam: Variant) -> void:
 		if hp <= 0:
 			can_take_damage = false
 			can_slide = false
-			can_jump = false
 			
 			state = "death"
 			
