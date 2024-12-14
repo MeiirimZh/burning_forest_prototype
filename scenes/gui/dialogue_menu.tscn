@@ -1,12 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://him80f21c8rm"]
+[gd_scene load_steps=6 format=3 uid="uid://him80f21c8rm"]
 
-[ext_resource type="Texture2D" uid="uid://brs124bebeaom" path="res://images/TestImage.png" id="1_7qmcd"]
+[ext_resource type="FontFile" uid="uid://cl41wfgc5k7l8" path="res://NotoSerif-VariableFont_wdth,wght.ttf" id="1_kuyhe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p6nrh"]
 bg_color = Color(0.10748, 0.10748, 0.10748, 1)
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="FontVariation" id="FontVariation_anrsh"]
+base_font = ExtResource("1_kuyhe")
+
+[sub_resource type="FontVariation" id="FontVariation_tmpqr"]
+base_font = ExtResource("1_kuyhe")
+
+[sub_resource type="FontVariation" id="FontVariation_cbvns"]
+base_font = ExtResource("1_kuyhe")
 
 [node name="DialogueMenu" type="CanvasLayer"]
 follow_viewport_enabled = true
@@ -48,29 +57,34 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Speaker" type="Label" parent="Control/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
+theme_override_fonts/font = SubResource("FontVariation_anrsh")
 theme_override_font_sizes/font_size = 20
 text = "Spirit"
 
 [node name="Speech" type="Label" parent="Control/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(10, 100)
 layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_tmpqr")
 theme_override_font_sizes/font_size = 20
-text = "Humans can control fire?! That is... impossible!"
+text = "Humans can control fire?! That is... impossible! Lorem ipsum dolor sit amet adisciping elit. Lorem ipsum dolor sit amet"
+autowrap_mode = 2
 
 [node name="Space" type="Label" parent="Control/MarginContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 8
 size_flags_vertical = 8
+theme_override_fonts/font = SubResource("FontVariation_cbvns")
 text = "[Space]"
 
-[node name="TextureRect" type="TextureRect" parent="Control"]
+[node name="Portrait" type="TextureRect" parent="Control"]
 layout_mode = 0
 offset_left = 60.0
 offset_top = 193.0
 offset_right = 310.0
 offset_bottom = 443.0
-texture = ExtResource("1_7qmcd")
