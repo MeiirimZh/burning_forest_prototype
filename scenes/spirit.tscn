@@ -1,10 +1,11 @@
-[gd_scene load_steps=34 format=4 uid="uid://ck1rkve1atrlh"]
+[gd_scene load_steps=35 format=4 uid="uid://ck1rkve1atrlh"]
 
 [ext_resource type="Script" path="res://scripts/spirit/spirit.gd" id="1_ldjbo"]
 [ext_resource type="Script" path="res://scripts/spirit/detect_spirit_damage.gd" id="2_0pivw"]
 [ext_resource type="Shader" path="res://shaders/transparency.gdshader" id="3_nevkq"]
 [ext_resource type="Texture2D" uid="uid://ygyj4tkqtm54" path="res://images/particles/leaf.png" id="3_tkgbc"]
 [ext_resource type="PackedScene" uid="uid://ibl0444sg4cs" path="res://scenes/gui/hud.tscn" id="5_osyg8"]
+[ext_resource type="PackedScene" uid="uid://him80f21c8rm" path="res://scenes/gui/dialogue_menu.tscn" id="6_ajx6i"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qvl7u"]
 resource_name = "body"
@@ -2763,6 +2764,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 shape = SubResource("BoxShape3D_ferxt")
 
 [node name="HUD" parent="." instance=ExtResource("5_osyg8")]
+
+[node name="DialogueMenu" parent="." instance=ExtResource("6_ajx6i")]
 
 [connection signal="ghost_activated" from="." to="HUD" method="_on_spirit_ghost_activated"]
 [connection signal="ghost_recover" from="." to="HUD" method="_on_spirit_ghost_recover"]

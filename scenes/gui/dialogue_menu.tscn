@@ -65,14 +65,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_fonts/font = SubResource("FontVariation_anrsh")
 theme_override_font_sizes/font_size = 20
-text = "Spirit"
 
 [node name="Speech" type="Label" parent="Control/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(10, 100)
 layout_mode = 2
 theme_override_fonts/font = SubResource("FontVariation_tmpqr")
 theme_override_font_sizes/font_size = 20
-text = "Humans can control fire?! That is... impossible! Lorem ipsum dolor sit amet adisciping elit. Lorem ipsum dolor sit amet"
 autowrap_mode = 2
 
 [node name="Space" type="Label" parent="Control/MarginContainer/MarginContainer/HBoxContainer"]

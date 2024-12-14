@@ -4,6 +4,7 @@ extends CharacterBody3D
 @onready var animation_player = $AnimationPlayer
 @onready var armature = $Armature
 @onready var mesh = $Armature/Skeleton3D/mesh
+@onready var dialogue_menu = $DialogueMenu
 
 # Nodes - Timers
 @onready var slide_timer = $Timers/SlideTimer
@@ -89,6 +90,7 @@ func die():
 	
 func _ready() -> void:
 	Global.player_mode = "normal"
+	dialogue_menu.hide()
 	transparency_sm.shader = transparency
 	ghost_cooldown_timer.start(ghost_cooldown_duration)
 	emit_signal("ghost_recover", ghost_cooldown_duration)

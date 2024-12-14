@@ -1,8 +1,7 @@
-[gd_scene load_steps=24 format=3 uid="uid://b7tpk1lt4xo34"]
+[gd_scene load_steps=23 format=3 uid="uid://b7tpk1lt4xo34"]
 
 [ext_resource type="PackedScene" uid="uid://ck1rkve1atrlh" path="res://scenes/spirit.tscn" id="1_1hhqs"]
 [ext_resource type="PackedScene" uid="uid://k72wmgih1jpx" path="res://scenes/enemies/merc.tscn" id="2_2aes2"]
-[ext_resource type="PackedScene" uid="uid://him80f21c8rm" path="res://scenes/gui/dialogue_menu.tscn" id="2_b1a61"]
 [ext_resource type="PackedScene" uid="uid://c0nunh5h4qu7g" path="res://scenes/apple.tscn" id="4_o1u6y"]
 [ext_resource type="PackedScene" uid="uid://bgjv3vausb3" path="res://scenes/death_pit.tscn" id="5_n1eax"]
 
@@ -81,8 +80,6 @@ shadow_enabled = true
 
 [node name="Spirit" parent="." instance=ExtResource("1_1hhqs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5583, 0, 0)
-
-[node name="DialogueMenu" parent="Spirit" instance=ExtResource("2_b1a61")]
 
 [node name="Tutorial" type="Node3D" parent="."]
 
