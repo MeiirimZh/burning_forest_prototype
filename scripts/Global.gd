@@ -11,5 +11,5 @@ var player_mode := "normal"
 
 # Dialogues
 var dialogues = {"intro": {"speakers": ["Spirit", "Spirit"],
-					"icons": [], 
-					"text": ["Humans can control fire?! That is... impossible!", "Okay, you can do it, Spirit!"]}}
+					"icons": ["spirit_shock", "spirit_anxiety"], 
+					"text": ["Humans can control fire?! That is... impossible!", "Okay...Remember what Willow taught you! Be brave!"]}}
