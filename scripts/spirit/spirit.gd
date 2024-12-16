@@ -56,6 +56,11 @@ signal ghost_recover(duration)
 var is_jumping := false
 var is_sliding := false
 var is_attacking := false
+var can_move := true
+var can_jump := true
+var can_attack := true
+var can_slide := true
+var can_ghost := true
 
 # Shaders
 var transparency = load("res://shaders/transparency.gdshader")
@@ -86,7 +91,14 @@ func die():
 	
 	# Make enemy projectiles go through the player
 	detect_dmg_collision_shape.queue_free()
-	
+
+func invert_functionality():
+	can_move = !can_move
+	can_jump = !can_jump
+	can_attack = !can_attack
+	can_slide = !can_slide
+	can_ghost = !can_ghost
+
 func _ready() -> void:
 	Global.player_mode = "normal"
 	transparency_sm.shader = transparency
@@ -97,7 +109,7 @@ func _physics_process(_delta) -> void:
 	var direction = 0
 
 	# Attack
-	if Input.is_action_just_pressed("attack") and not is_sliding and attack_cooldown_timer.time_left == 0 and hp > 0:
+	if Input.is_action_just_pressed("attack") and not is_sliding and attack_cooldown_timer.time_left == 0 and hp > 0 and can_attack:
 		spawn_projectile()
 		is_attacking = true
 
@@ -110,14 +122,14 @@ func _physics_process(_delta) -> void:
 	play_animation_based_on_state(last_direction, state_animation_angles[state][0], state_animation_angles[state][1], state)
 	
 	# Running
-	if Input.is_action_pressed("left") and not is_sliding and hp > 0:
+	if Input.is_action_pressed("left") and not is_sliding and hp > 0 and can_move:
 		direction = -1
 		last_direction = -1
 		leaves_particles.position = Vector3(-0.65, 1.05, 0)
 		if is_on_floor():
 			state = "run"
 		
-	elif Input.is_action_pressed("right") and not is_sliding and hp > 0:
+	elif Input.is_action_pressed("right") and not is_sliding and hp > 0 and can_move:
 		direction = 1
 		last_direction = 1
 		leaves_particles.position = Vector3(0.65, 1.05, 0)
@@ -147,7 +159,7 @@ func _physics_process(_delta) -> void:
 			is_jumping = false
 			state = "idle"
 		
-	if Input.is_action_just_pressed("jump") and is_on_floor() and hp > 0:
+	if Input.is_action_just_pressed("jump") and is_on_floor() and hp > 0 and can_jump:
 		velocity.y = jump_force
 		is_jumping = true
 		if velocity.x == 0 and not is_attacking:
@@ -156,12 +168,12 @@ func _physics_process(_delta) -> void:
 			state = "jump_side"
 			
 	if Input.is_action_just_pressed("slide") and is_on_floor() and slide_cooldown_timer.time_left == 0 \
-	and not is_attacking and hp > 0:
+	and not is_attacking and hp > 0 and can_slide:
 		is_sliding = true
 		slide_timer.start(slide_duration)
 		slide_cooldown_timer.start(slide_cooldown_duration)
 		
-	if Input.is_action_just_pressed("ghost") and ghost_cooldown_timer.time_left == 0:
+	if Input.is_action_just_pressed("ghost") and ghost_cooldown_timer.time_left == 0 and can_ghost:
 		Global.player_mode = "ghost"
 		emit_signal("ghost_activated", ghost_duration)
 		mesh.material_override = transparency_sm
