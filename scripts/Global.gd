@@ -10,4 +10,6 @@ var player_healed := false
 var player_mode := "normal"
 
 # Dialogues
-var dialogues = {"intro": {"speakers": ["Spirit"], "icons": [], "text": ["Humans can control fire?! That is... impossible!"]}}
+var dialogues = {"intro": {"speakers": ["Spirit", "Spirit"],
+					"icons": [], 
+					"text": ["Humans can control fire?! That is... impossible!", "Okay, you can do it, Spirit!"]}}

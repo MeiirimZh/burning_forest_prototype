@@ -81,7 +81,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_fonts/font = SubResource("FontVariation_cbvns")
-text = "[Space]"
+text = "[Enter]"
 
 [node name="Portrait" type="TextureRect" parent="Control"]
 layout_mode = 0

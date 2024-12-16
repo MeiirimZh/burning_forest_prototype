@@ -9,5 +9,6 @@ func _on_body_entered(body: Node3D) -> void:
 			body.invert_functionality()
 			var dialogue_menu = body.get_node("DialogueMenu")
 			dialogue_menu.start_dialogue(key)
+			queue_free()
 		else:
 			print("No such node!")
