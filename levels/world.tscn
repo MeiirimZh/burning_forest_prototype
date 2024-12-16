@@ -1,8 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://b7tpk1lt4xo34"]
+[gd_scene load_steps=24 format=3 uid="uid://b7tpk1lt4xo34"]
 
 [ext_resource type="PackedScene" uid="uid://ck1rkve1atrlh" path="res://scenes/spirit.tscn" id="1_1hhqs"]
 [ext_resource type="PackedScene" uid="uid://k72wmgih1jpx" path="res://scenes/enemies/merc.tscn" id="2_2aes2"]
 [ext_resource type="PackedScene" uid="uid://c0nunh5h4qu7g" path="res://scenes/apple.tscn" id="4_o1u6y"]
+[ext_resource type="PackedScene" uid="uid://bf5omd4rvpjcd" path="res://scenes/dialogue_area.tscn" id="5_mshmw"]
 [ext_resource type="PackedScene" uid="uid://bgjv3vausb3" path="res://scenes/death_pit.tscn" id="5_n1eax"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sgncv"]
@@ -190,3 +191,10 @@ hp = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.40797, 4.70888, 0)
 
 [node name="DeathPit" parent="." instance=ExtResource("5_n1eax")]
+
+[node name="DialogueArea" parent="." instance=ExtResource("5_mshmw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.49186, 0, 0)
+key = "intro"
+
+[node name="DialogueArea2" parent="." instance=ExtResource("5_mshmw")]
+key = "APPLE"

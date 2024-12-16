@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://him80f21c8rm"]
+[gd_scene load_steps=7 format=3 uid="uid://him80f21c8rm"]
 
+[ext_resource type="Script" path="res://scripts/gui/dialogue_menu.gd" id="1_cokhv"]
 [ext_resource type="FontFile" uid="uid://cl41wfgc5k7l8" path="res://NotoSerif-VariableFont_wdth,wght.ttf" id="1_kuyhe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p6nrh"]
@@ -18,7 +19,9 @@ base_font = ExtResource("1_kuyhe")
 base_font = ExtResource("1_kuyhe")
 
 [node name="DialogueMenu" type="CanvasLayer"]
+process_mode = 3
 follow_viewport_enabled = true
+script = ExtResource("1_cokhv")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
