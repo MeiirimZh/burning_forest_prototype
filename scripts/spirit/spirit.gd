@@ -29,6 +29,7 @@ extends CharacterBody3D
 @onready var rapid_wind_2 = $Sounds/RapidWind2
 @onready var burn = $Sounds/Burn
 @onready var leaves_crunch = $Sounds/LeavesCrunch
+@onready var fire = $Sounds/Fire
 
 # Scenes
 @export var projectile_scene : PackedScene = preload("res://scenes/projectiles/spirit_projectile.tscn")
@@ -256,9 +257,12 @@ func _on_detect_damage_spirit_damage_taken(dam: Variant) -> void:
 		
 			blood_particles.restart()
 			blood_particles.emitting = true
-			
+
 			if hp <= 0:
+				fire.pitch_scale = 0.6
 				die()
+				
+			fire.play()
 	else:
 		die()
 
