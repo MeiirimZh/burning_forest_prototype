@@ -33,9 +33,15 @@ func finish():
 	i = 0
 	hide()
 	get_parent().invert_functionality()
+	get_parent().ghost_cooldown_timer.set_paused(false)
+	var hud = get_parent().get_node("HUD")
+	hud.resume_tweens()
 
 func start_dialogue(key):
 	current_key = key
+	get_parent().ghost_cooldown_timer.set_paused(true)
+	var hud = get_parent().get_node("HUD")
+	hud.pause_tweens()
 	show()
 	in_progress = true
 

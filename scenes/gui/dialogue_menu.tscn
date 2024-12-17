@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://cl41wfgc5k7l8" path="res://NotoSerif-VariableFont_wdth,wght.ttf" id="1_kuyhe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3unhw"]
-bg_color = Color(0.123079, 0.0432801, 0.018574, 1)
+bg_color = Color(0.0862745, 0.0862745, 0.105882, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10

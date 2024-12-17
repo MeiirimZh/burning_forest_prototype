@@ -193,5 +193,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.40797, 4.70888, 0)
 [node name="DeathPit" parent="." instance=ExtResource("5_n1eax")]
 
 [node name="DialogueArea" parent="." instance=ExtResource("5_mshmw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.4053, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.7918, 0, 0)
 key = "intro"
