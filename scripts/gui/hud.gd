@@ -82,8 +82,8 @@ func _process(_delta: float) -> void:
 		
 		Global.player_healed = false
 
-func _on_spirit_ghost_activated(duration: Variant) -> void:
+func _on_spirit_ghost_activated(_duration: Variant) -> void:
 	start_tween_active()
 
-func _on_spirit_ghost_recover(duration: Variant) -> void:
+func _on_spirit_ghost_recover(_duration: Variant) -> void:
 	start_tween_recover()
