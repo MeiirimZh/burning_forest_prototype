@@ -1,10 +1,11 @@
-[gd_scene load_steps=36 format=4 uid="uid://ck1rkve1atrlh"]
+[gd_scene load_steps=37 format=4 uid="uid://ck1rkve1atrlh"]
 
 [ext_resource type="Script" path="res://scripts/spirit/spirit.gd" id="1_ldjbo"]
 [ext_resource type="Script" path="res://scripts/spirit/detect_spirit_damage.gd" id="2_0pivw"]
 [ext_resource type="Shader" path="res://shaders/transparency.gdshader" id="3_nevkq"]
 [ext_resource type="Texture2D" uid="uid://ygyj4tkqtm54" path="res://images/particles/leaf.png" id="3_tkgbc"]
 [ext_resource type="AudioStream" uid="uid://duidwjuvej7sy" path="res://sounds/footstep.mp3" id="4_8ocuv"]
+[ext_resource type="AudioStream" uid="uid://b813gxhm2bxw5" path="res://sounds/rapid_wind.mp3" id="5_8e6ax"]
 [ext_resource type="PackedScene" uid="uid://ibl0444sg4cs" path="res://scenes/gui/hud.tscn" id="5_osyg8"]
 [ext_resource type="PackedScene" uid="uid://him80f21c8rm" path="res://scenes/gui/dialogue_menu.tscn" id="6_ajx6i"]
 
@@ -2762,6 +2763,10 @@ draw_pass_1 = SubResource("BoxMesh_wckqq")
 
 [node name="Footstep" type="AudioStreamPlayer3D" parent="Sounds"]
 stream = ExtResource("4_8ocuv")
+
+[node name="RapidWind" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = ExtResource("5_8e6ax")
+pitch_scale = 1.2
 
 [node name="DetectDamage" type="Area3D" parent="." groups=["spirit"]]
 collision_layer = 2

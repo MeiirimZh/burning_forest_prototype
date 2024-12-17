@@ -25,6 +25,7 @@ extends CharacterBody3D
 
 # Nodes - Sounds
 @onready var footstep = $Sounds/Footstep
+@onready var rapid_wind = $Sounds/RapidWind
 
 # Scenes
 @export var projectile_scene : PackedScene = preload("res://scenes/projectiles/spirit_projectile.tscn")
@@ -180,6 +181,8 @@ func _physics_process(_delta) -> void:
 			state = "jump_front"
 		elif velocity.x != 0 and not is_attacking:
 			state = "jump_side"
+		rapid_wind.pitch_scale = randf_range(1.2, 1.4)
+		rapid_wind.play()
 			
 	if Input.is_action_just_pressed("slide") and is_on_floor() and slide_cooldown_timer.time_left == 0 \
 	and not is_attacking and hp > 0 and can_slide:
