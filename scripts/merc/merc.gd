@@ -5,6 +5,10 @@ extends CharacterBody3D
 @onready var mesh = $Armature
 @onready var attack_cooldown_timer = $AttackCooldownTimer
 
+# Nodes - Sounds
+@onready var shout_fire = $Sounds/MaleShoutingFire
+@onready var grunt = $Sounds/MaleGrunt
+
 # Scenes
 @onready var player = get_node("/root/World/Spirit")
 @export var projectile_scene : PackedScene = preload("res://scenes/projectiles/enemy_projectile.tscn")
@@ -74,6 +78,8 @@ func _process(_delta: float) -> void:
 func _on_detect_player_body_entered(body: Node3D) -> void:
 	if body.name == "Spirit":
 		player_detected = true 
+		shout_fire.pitch_scale = randf_range(0.8, 1.2)
+		shout_fire.play()
 
 func _on_detect_player_body_exited(body: Node3D) -> void:
 	if body.name == "Spirit":
@@ -85,5 +91,8 @@ func _on_attack_cooldown_timer_timeout() -> void:
 func _on_detect_damage_merc_damage_taken(dam: Variant) -> void:
 	hp -= dam
 	merc_damaged = true
+	
+	grunt.pitch_scale = randf_range(0.8, 1.2)
+	grunt.play()
 	if hp <= 0:
 		queue_free()
