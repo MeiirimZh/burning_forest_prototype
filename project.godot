@@ -30,10 +30,11 @@ window/stretch/aspect="expand"
 folder_colors={
 "res://images/": "red",
 "res://levels/": "blue",
-"res://models/": "orange",
-"res://scenes/": "green",
-"res://scripts/": "yellow",
-"res://shaders/": "purple"
+"res://models/": "red",
+"res://scenes/": "blue",
+"res://scripts/": "blue",
+"res://shaders/": "red",
+"res://sounds/": "green"
 }
 
 [input]

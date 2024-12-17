@@ -12,6 +12,7 @@ extends CharacterBody3D
 @onready var damage_timer = $Timers/DamageTimer
 @onready var ghost_timer = $Timers/GhostTimer
 @onready var ghost_cooldown_timer = $Timers/GhostCooldownTimer
+@onready var footstep_timer = $Timers/FootstepTimer
 
 # Nodes - CollisionShapes
 @onready var collision_shape = $CollisionShape3D
@@ -21,6 +22,9 @@ extends CharacterBody3D
 @onready var leaves_particles = $Particles/Leaves
 @onready var blood_particles = $Particles/Blood
 @onready var ghost_particles = $Particles/GhostParticles
+
+# Nodes - Sounds
+@onready var footstep = $Sounds/Footstep
 
 # Scenes
 @export var projectile_scene : PackedScene = preload("res://scenes/projectiles/spirit_projectile.tscn")
@@ -98,6 +102,10 @@ func invert_functionality():
 	can_attack = !can_attack
 	can_slide = !can_slide
 	can_ghost = !can_ghost
+	
+func play_footstep_audio():
+	footstep.pitch_scale = randf_range(.9, 1.1)
+	footstep.play()
 
 func _ready() -> void:
 	Global.player_mode = "normal"
@@ -139,6 +147,12 @@ func _physics_process(_delta) -> void:
 	# Reset the state to idle after a movement
 	if velocity.x == 0 and is_on_floor() and not is_attacking and hp > 0:
 		state = "idle"
+		footstep.stop()
+		
+	if velocity.length() > 1 and not is_jumping and not is_sliding:
+		if footstep_timer.time_left <= 0:
+			play_footstep_audio()
+			footstep_timer.start(0.4)
 		
 	if is_attacking:
 		if velocity.x == 0 and not is_jumping:
