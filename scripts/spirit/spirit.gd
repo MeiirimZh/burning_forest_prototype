@@ -26,6 +26,8 @@ extends CharacterBody3D
 # Nodes - Sounds
 @onready var footstep = $Sounds/Footstep
 @onready var rapid_wind = $Sounds/RapidWind
+@onready var rapid_wind_2 = $Sounds/RapidWind2
+@onready var burn = $Sounds/Burn
 
 # Scenes
 @export var projectile_scene : PackedScene = preload("res://scenes/projectiles/spirit_projectile.tscn")
@@ -150,7 +152,7 @@ func _physics_process(_delta) -> void:
 		state = "idle"
 		footstep.stop()
 		
-	if velocity.length() > 1 and not is_jumping and not is_sliding:
+	if velocity.length() > 1 and not is_jumping and not is_sliding and is_on_floor():
 		if footstep_timer.time_left <= 0:
 			play_footstep_audio()
 			footstep_timer.start(0.4)
@@ -181,14 +183,16 @@ func _physics_process(_delta) -> void:
 			state = "jump_front"
 		elif velocity.x != 0 and not is_attacking:
 			state = "jump_side"
-		rapid_wind.pitch_scale = randf_range(1.2, 1.4)
-		rapid_wind.play()
-			
+		rapid_wind_2.pitch_scale = randf_range(0.8, 1.2)
+		rapid_wind_2.play()
+	
 	if Input.is_action_just_pressed("slide") and is_on_floor() and slide_cooldown_timer.time_left == 0 \
 	and not is_attacking and hp > 0 and can_slide:
 		is_sliding = true
 		slide_timer.start(slide_duration)
 		slide_cooldown_timer.start(slide_cooldown_duration)
+		rapid_wind.pitch_scale = randf_range(1.2, 1.4)
+		rapid_wind.play()
 		
 	if Input.is_action_just_pressed("ghost") and ghost_cooldown_timer.time_left == 0 and can_ghost:
 		Global.player_mode = "ghost"
@@ -196,6 +200,7 @@ func _physics_process(_delta) -> void:
 		mesh.material_override = transparency_sm
 		collision_layer = (1 << 0)
 		collision_mask = (1 << 0)
+		burn.play()
 		
 		ghost_particles.emitting = true
 		detect_dmg_collision_shape.disabled = true
@@ -266,5 +271,6 @@ func _on_ghost_timer_timeout() -> void:
 	ghost_particles.emitting = false
 	mesh.material_override = null
 	detect_dmg_collision_shape.disabled = false
+	burn.play()
 	
 	ghost_cooldown_timer.start(ghost_cooldown_duration)
