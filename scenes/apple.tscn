@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0nunh5h4qu7g"]
+[gd_scene load_steps=6 format=3 uid="uid://c0nunh5h4qu7g"]
 
 [ext_resource type="Script" path="res://scripts/objects/apple.gd" id="1_r84dk"]
+[ext_resource type="AudioStream" uid="uid://cj4ha6m044uak" path="res://sounds/soul_steal.mp3" id="2_07r5j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rlefx"]
 albedo_color = Color(0.840914, 0, 0.0908186, 1)
@@ -22,4 +23,10 @@ mesh = SubResource("SphereMesh_tdc7x")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_hrqt5")
 
+[node name="Sounds" type="Node3D" parent="."]
+
+[node name="DrainEnergy" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = ExtResource("2_07r5j")
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="Sounds/DrainEnergy" to="." method="_on_drain_energy_finished"]
