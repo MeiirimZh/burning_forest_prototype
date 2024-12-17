@@ -7,7 +7,7 @@ extends Node
 func _ready() -> void:
 	ambient.play()
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Global.player_damaged:
 		if player.hp == 0:
 			ambient.pitch_scale = Global.low_pitch_scale
