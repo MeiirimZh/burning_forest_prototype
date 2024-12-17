@@ -11,6 +11,9 @@ extends CanvasLayer
 @onready var spirit_shock = preload("res://images/portraits/SpiritShock.png")
 var portraits
 
+# Tweens
+var tween
+
 # Flowers
 @onready var living_flower = preload("res://images/icons/Flower.png")
 @onready var dead_flower = preload("res://images/icons/DeadFlower.png")
@@ -24,9 +27,19 @@ var good_characters = ["Spirit"]
 func _ready() -> void:
 	hide()
 	portraits = {"spirit_anxiety": spirit_anxiety, "spirit_shock": spirit_shock}
+
+func tween_text(label):
+	label.visible_ratio = 0.0
+	tween = create_tween()
+	tween.tween_property(label, "visible_ratio", 1.0, 2.0)
 	
+func restart_tween_text(label):
+	tween.kill()
+	label.visible_ratio = 1.0
+
 func next_line():
 	i += 1
+	tween_text(speech)
 
 func finish():
 	in_progress = false
@@ -43,6 +56,7 @@ func start_dialogue(key):
 	var hud = get_parent().get_node("HUD")
 	hud.pause_tweens()
 	show()
+	tween_text(speech)
 	in_progress = true
 
 func _process(_delta: float) -> void:
@@ -59,6 +73,12 @@ func _process(_delta: float) -> void:
 		
 		if Input.is_action_just_pressed("enter"):
 			if i < Global.dialogues[current_key]["text"].size() - 1:
-				next_line()
+				if speech.visible_ratio == 1:
+					next_line()
+				else:
+					restart_tween_text(speech)
 			else:
-				finish()
+				if speech.visible_ratio == 1:
+					finish()
+				else:
+					restart_tween_text(speech)
