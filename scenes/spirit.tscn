@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=4 uid="uid://ck1rkve1atrlh"]
+[gd_scene load_steps=40 format=4 uid="uid://ck1rkve1atrlh"]
 
 [ext_resource type="Script" path="res://scripts/spirit/spirit.gd" id="1_ldjbo"]
 [ext_resource type="Script" path="res://scripts/spirit/detect_spirit_damage.gd" id="2_0pivw"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://him80f21c8rm" path="res://scenes/gui/dialogue_menu.tscn" id="6_ajx6i"]
 [ext_resource type="AudioStream" uid="uid://cr3scourkcsi7" path="res://sounds/rapid_wind_2.mp3" id="6_w1iur"]
 [ext_resource type="AudioStream" uid="uid://t02xw2gc71i7" path="res://sounds/burn.mp3" id="7_fb8fn"]
+[ext_resource type="AudioStream" uid="uid://dmvyxctwyt8t8" path="res://sounds/leaves.mp3" id="8_j8vt5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qvl7u"]
 resource_name = "body"
@@ -2776,6 +2777,9 @@ stream = ExtResource("6_w1iur")
 
 [node name="Burn" type="AudioStreamPlayer3D" parent="Sounds"]
 stream = ExtResource("7_fb8fn")
+
+[node name="LeavesCrunch" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = ExtResource("8_j8vt5")
 
 [node name="DetectDamage" type="Area3D" parent="." groups=["spirit"]]
 collision_layer = 2

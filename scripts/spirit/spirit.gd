@@ -28,6 +28,7 @@ extends CharacterBody3D
 @onready var rapid_wind = $Sounds/RapidWind
 @onready var rapid_wind_2 = $Sounds/RapidWind2
 @onready var burn = $Sounds/Burn
+@onready var leaves_crunch = $Sounds/LeavesCrunch
 
 # Scenes
 @export var projectile_scene : PackedScene = preload("res://scenes/projectiles/spirit_projectile.tscn")
@@ -126,6 +127,9 @@ func _physics_process(_delta) -> void:
 
 		leaves_particles.restart()
 		leaves_particles.emitting = true
+		
+		leaves_crunch.pitch_scale = randf_range(0.8, 1.2)
+		leaves_crunch.play()
 		
 		attack_cooldown_timer.start(attack_cooldown_duration)
 	
