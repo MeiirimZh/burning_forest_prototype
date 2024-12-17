@@ -8,6 +8,7 @@ var score := 0
 var player_damaged := false
 var player_healed := false
 var player_mode := "normal"
+var low_pitch_scale := 0.6
 
 # Dialogues
 var dialogues = {"intro": {"speakers": ["Spirit", "Spirit"],
