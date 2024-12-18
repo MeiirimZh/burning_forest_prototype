@@ -1,4 +1,10 @@
-[gd_scene format=3 uid="uid://8a26mnxvv4yq"]
+[gd_scene load_steps=3 format=3 uid="uid://8a26mnxvv4yq"]
+
+[ext_resource type="Shader" path="res://shaders/pause_menu.gdshader" id="1_wc8dw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xyce3"]
+shader = ExtResource("1_wc8dw")
+shader_parameter/lod = 0.0
 
 [node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
@@ -12,6 +18,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
+material = SubResource("ShaderMaterial_xyce3")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
