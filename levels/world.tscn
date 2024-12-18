@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://b7tpk1lt4xo34"]
+[gd_scene load_steps=32 format=3 uid="uid://b7tpk1lt4xo34"]
 
 [ext_resource type="PackedScene" uid="uid://ck1rkve1atrlh" path="res://scenes/spirit.tscn" id="1_1hhqs"]
 [ext_resource type="Script" path="res://scripts/levels/world.gd" id="1_ujp8k"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bf5omd4rvpjcd" path="res://scenes/dialogue_area.tscn" id="5_mshmw"]
 [ext_resource type="PackedScene" uid="uid://bgjv3vausb3" path="res://scenes/death_pit.tscn" id="5_n1eax"]
 [ext_resource type="AudioStream" uid="uid://2ufi2wl1sahh" path="res://sounds/birds_singing.mp3" id="7_nysbb"]
+[ext_resource type="PackedScene" uid="uid://8a26mnxvv4yq" path="res://scenes/gui/pause_menu.tscn" id="8_6s6re"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6o77g"]
 
@@ -228,3 +229,5 @@ key = "intro"
 [node name="Ambient" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_nysbb")
 volume_db = -5.0
+
+[node name="PauseMenu" parent="." instance=ExtResource("8_6s6re")]
