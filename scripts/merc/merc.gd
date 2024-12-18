@@ -13,6 +13,10 @@ extends CharacterBody3D
 @onready var player = get_node("/root/World/Spirit")
 @export var projectile_scene : PackedScene = preload("res://scenes/projectiles/enemy_projectile.tscn")
 
+# Signals
+signal player_entered
+signal player_exited
+
 # Variables
 @export var attack_cooldown_duration := 2.0
 @export var hp := 1
@@ -78,12 +82,14 @@ func _process(_delta: float) -> void:
 func _on_detect_player_body_entered(body: Node3D) -> void:
 	if body.name == "Spirit":
 		player_detected = true 
+		emit_signal("player_entered")
 		shout_fire.pitch_scale = randf_range(0.8, 1.2)
 		shout_fire.play()
 
 func _on_detect_player_body_exited(body: Node3D) -> void:
 	if body.name == "Spirit":
 		player_detected = false
+		emit_signal("player_exited")
 
 func _on_attack_cooldown_timer_timeout() -> void:
 	can_attack = true

@@ -17,6 +17,8 @@ var darken_img_sm : ShaderMaterial = ShaderMaterial.new()
 var skulls = []
 
 func _ready() -> void:
+	modulate.a = 0.0
+	
 	darken_img_sm.shader = darken_img
 	
 	for i in range(parent.hp):
@@ -29,3 +31,13 @@ func _process(_delta: float) -> void:
 	if parent.merc_damaged:
 		skulls[parent.hp].material = darken_img_sm
 		parent.merc_damaged = false
+
+
+func _on_merc_player_entered() -> void:
+	var tween = create_tween()
+	tween.tween_property(self, "modulate:a", 1.0, 0.5)
+
+
+func _on_merc_player_exited() -> void:
+	var tween = create_tween()
+	tween.tween_property(self, "modulate:a", 0.0, 0.5)
