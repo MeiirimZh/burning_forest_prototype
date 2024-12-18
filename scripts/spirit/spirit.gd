@@ -259,7 +259,7 @@ func _on_detect_damage_spirit_damage_taken(dam: Variant) -> void:
 			blood_particles.emitting = true
 
 			if hp <= 0:
-				fire.pitch_scale = 0.6
+				fire.pitch_scale = Global.low_pitch_scale
 				die()
 				
 			fire.play()
